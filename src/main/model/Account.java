@@ -1,5 +1,6 @@
 package model;
 
+// Represents an account for the scoring system.
 public class Account {
 
 

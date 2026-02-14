@@ -3,11 +3,11 @@ package model;
 // Represents a game of mahjong with players in their corresponding seats.
 public class Game {
 
-    // REQUIRES: east, south, west, and north have non-zero lengths AND no duplicates
+    // REQUIRES: east, south, west, and north are not duplicates
     // EFFECTS: Creates a game with players in corresponding seats in a list, 
     //          starting with East 1 round, score 0 for every player, and empty
     //          list of imcomplete transactions
-    public Game(String east, String south, String west, String north) {
+    public Game(Account east, Account south, Account west, Account north) {
         // stub
     }
 
