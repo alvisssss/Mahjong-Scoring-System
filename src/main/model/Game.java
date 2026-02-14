@@ -3,9 +3,10 @@ package model;
 // Represents a game of mahjong with players in their corresponding seats.
 public class Game {
 
-    // REQUIRES: east, south, west, and north have non-zero lengths AND no duplicates.
+    // REQUIRES: east, south, west, and north have non-zero lengths AND no duplicates
     // EFFECTS: Creates a game with players in corresponding seats in a list, 
-    //          starting with East 1 round
+    //          starting with East 1 round, score 0 for every player, and empty
+    //          list of imcomplete transactions
     public Game(String east, String south, String west, String north) {
         // stub
     }
@@ -43,21 +44,42 @@ public class Game {
         // stub
     }
 
-    public String getEastPlayer() {
+    public String getEastPlayerId() {
         return ""; //stub
     }
 
-    public String getSouthPlayer() {
+    public String getSouthPlayerId() {
         return ""; //stub
     }
 
-    public String getWestPlayer() {
+    public String getWestPlayerId() {
         return ""; //stub
     }
 
-    public String getNorthPlayer() {
+    public String getNorthPlayerId() {
         return ""; //stub
     }
+
+    public Integer getEastPlayerScore() {
+        return 0; //stub
+    }
+
+    public Integer getSouthPlayerScore() {
+        return 0; //stub
+    }
+
+    public Integer getWestPlayerScore() {
+        return 0; //stub
+    }
+
+    public Integer getNorthPlayerScore() {
+        return 0; //stub
+    }
+
+    public String getCurrentRound() {
+        return ""; //stub
+    }
+
 
 
 
