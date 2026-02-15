@@ -72,14 +72,10 @@ public class Game {
                 incompleteTransactions.put(List.of(loser, winner), 
                         incompleteTransactions.getOrDefault(List.of(loser, winner), 0) 
                         + faan + BASE + 1 + (2 * continuance));
-                // int[] transaction = {loser, winner, faan + BASE + 1 + (2 * continuance)};
-                // incompleteTransactions.add(transaction);
             } else {
                 incompleteTransactions.put(List.of(loser, winner), 
                         incompleteTransactions.getOrDefault(List.of(loser, winner), 0) 
                         + faan + BASE);
-                // int[] transaction = {loser, winner, faan + BASE};
-                // incompleteTransactions.add(transaction);
             }
         }
         progressGame(roundCounter % 4 != winner);
