@@ -12,6 +12,5 @@ While the application does not implement the actual game, here is a link to the 
 - As a user, I want to be able to add a game to the current game list for recording and select the players.
 - As a user, I want to be able to select the round end state and input Faan if necessary.
 - As a user, I want to be able to view all recorded games in the past.
-- As a user, I want to be able to remove the last round recorded.
 - As a user, I want to be able to remove a current game.
 - As a user, I want to be able to see analysis of a player, such as their win rate and average Faan of winning hand.
