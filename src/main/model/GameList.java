@@ -11,15 +11,16 @@ public class GameList {
 
     }
     
+    // REQUIRES: game not already in the list
     // MODIFIES: this
     // EFFECTS: adds the given game to the list
-    public void addGame() {
+    public void addGame(Game game) {
 
     }
 
     // MODIFIES: this
     // EFFECTS: removes the given game from the list
-    public void removeGame() {
+    public void removeGame(Game game) {
 
     }
 
