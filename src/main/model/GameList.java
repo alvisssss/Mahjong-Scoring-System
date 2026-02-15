@@ -18,6 +18,7 @@ public class GameList {
 
     }
 
+    // REQUIRES: game already in the list
     // MODIFIES: this
     // EFFECTS: removes the given game from the list
     public void removeGame(Game game) {
