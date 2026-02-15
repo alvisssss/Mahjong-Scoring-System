@@ -3,7 +3,9 @@ package model;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -35,78 +37,82 @@ public class TestGame {
         assertEquals(testGame.getSouthPlayerScore(), 0);
         assertEquals(testGame.getWestPlayerScore(), 0);
         assertEquals(testGame.getNorthPlayerScore(), 0);
-        assertEquals(testGame.getCurrentRound(), "E1");
-        assertEquals(testGame.getContinuance(), 0);
+        assertEquals(testGame.getCurrentRound(), "E1-0");
     }
 
     @Test
     void testDealerDealIn() {
-        testGame.dealIn(2, 0, 10);
-        List<int[]> list = new ArrayList<>();
-        int[] list2 = {0, 2, 16};
-        list.add(list2);
-        assertEquals(testGame.getCurrentRound(), "E2");
-        assertEquals(testGame.getContinuance(), 0);
-        assertEquals(testGame.getIncompleteTransactions(), list);
+        testGame.dealIn(List.of(2), 0, List.of(10));
+        Map<List<Integer>, Integer> map = new HashMap<>();
+        map.put(List.of(0, 2), 16);
+        assertEquals(testGame.getCurrentRound(), "E2-0");
+        assertEquals(testGame.getIncompleteTransactions(), map);
     }
 
     @Test
     void testNonDealerDealInToNonDealer() {
-        testGame.dealIn(2, 1, 10);
-        List<int[]> list = new ArrayList<>();
-        int[] list2 = {1, 2, 15};
-        list.add(list2);
-        assertEquals(testGame.getCurrentRound(), "E2");
-        assertEquals(testGame.getContinuance(), 0);
-        assertEquals(testGame.getIncompleteTransactions(), list);
+        testGame.dealIn(List.of(2), 1, List.of(10));
+        Map<List<Integer>, Integer> map = new HashMap<>();
+        map.put(List.of(1, 2), 15);
+        assertEquals(testGame.getCurrentRound(), "E2-0");
+        assertEquals(testGame.getIncompleteTransactions(), map);
     }
 
     @Test
     void testNonDealerDealInToDealer() {
-        testGame.dealIn(0, 1, 10);
-        List<int[]> list = new ArrayList<>();
-        int[] list2 = {1, 2, 16};
-        list.add(list2);
-        assertEquals(testGame.getCurrentRound(), "E1");
-        assertEquals(testGame.getContinuance(), 1);
-        assertEquals(testGame.getIncompleteTransactions(), list);
+        testGame.dealIn(List.of(0), 1, List.of(10));
+        Map<List<Integer>, Integer> map = new HashMap<>();
+        map.put(List.of(1, 0), 16);
+        assertEquals(testGame.getCurrentRound(), "E1-1");
+        assertEquals(testGame.getIncompleteTransactions(), map);
+    }
+
+    @Test
+    void testNonDealerDealInToDealerAndNonDealer() {
+        testGame.dealIn(List.of(0, 2), 1, List.of(10, 20));
+        Map<List<Integer>, Integer> map = new HashMap<>();
+        map.put(List.of(1, 0), 16);
+        map.put(List.of(1, 2), 25);
+        assertEquals(testGame.getCurrentRound(), "E1-1");
+        assertEquals(testGame.getIncompleteTransactions(), map);
+    }
+
+    @Test
+    void testNonDealerDealInToNonDealers() {
+        testGame.dealIn(List.of(3, 2), 1, List.of(65, 10));
+        Map<List<Integer>, Integer> map = new HashMap<>();
+        map.put(List.of(1, 3), 70);
+        map.put(List.of(1, 2), 15);
+        assertEquals(testGame.getCurrentRound(), "E2-0");
+        assertEquals(testGame.getIncompleteTransactions(), map);
     }
 
     @Test
     void selfDrawDealer() {
         testGame.selfDraw(0, 10);
-        List<int[]> list = new ArrayList<>();
-        int[] list2 = {1, 0, 16};
-        int[] list3 = {2, 0, 16};
-        int[] list4 = {3, 0, 16};
-        list.add(list2);
-        list.add(list3);
-        list.add(list4);
-        assertEquals(testGame.getCurrentRound(), "E1");
-        assertEquals(testGame.getContinuance(), 1);
-        assertEquals(testGame.getIncompleteTransactions(), list);
+        Map<List<Integer>, Integer> map = new HashMap<>();
+        map.put(List.of(1, 0), 16);
+        map.put(List.of(2, 0), 16);
+        map.put(List.of(3, 0), 16);
+        assertEquals(testGame.getCurrentRound(), "E1-1");
+        assertEquals(testGame.getIncompleteTransactions(), map);
     }
 
     @Test
     void selfDrawNonDealer() {
         testGame.selfDraw(2, 10);
-        List<int[]> list = new ArrayList<>();
-        int[] list2 = {0, 0, 16};
-        int[] list3 = {1, 0, 15};
-        int[] list4 = {3, 0, 15};
-        list.add(list2);
-        list.add(list3);
-        list.add(list4);
-        assertEquals(testGame.getCurrentRound(), "E2");
-        assertEquals(testGame.getContinuance(), 0);
-        assertEquals(testGame.getIncompleteTransactions(), list);
+        Map<List<Integer>, Integer> map = new HashMap<>();
+        map.put(List.of(0, 2), 16);
+        map.put(List.of(1, 2), 15);
+        map.put(List.of(3, 2), 15);
+        assertEquals(testGame.getCurrentRound(), "E2-0");
+        assertEquals(testGame.getIncompleteTransactions(), map);
     }
 
     @Test
     void testDeckOut() {
         testGame.deckOut();
-        assertEquals(testGame.getCurrentRound(), "E1");
-        assertEquals(testGame.getContinuance(), 1);
+        assertEquals(testGame.getCurrentRound(), "E1-1");
     }
 
     @Test

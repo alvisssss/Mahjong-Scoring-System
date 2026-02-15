@@ -25,7 +25,7 @@ public class Game {
     // EFFECTS: Creates a game with players in corresponding seats in a list,
     // starting in East 1 round, no continuance, score 0 for every player,
     // and empty list of imcomplete transactions
-    Game(Account east, Account south, Account west, Account north) {
+    public Game(Account east, Account south, Account west, Account north) {
         gamePlayerList = new ArrayList<>();
         gamePlayerScores = new ArrayList<>();
         gamePlayerList.add(east);
@@ -44,17 +44,17 @@ public class Game {
     // REQUIRES: faan > 0 AND winner != loser AND 0 <= winner, loser <= 3
     // MODIFIES: this
     // EFFECTS: records the game as deal in and progress the game
-    public void dealIn(List<Integer> winners, int loser, int faan) {
+    public void dealIn(List<Integer> winners, int loser, List<Integer> faan) {
         processIncompleteTransactions(winners, new ArrayList<Integer>(List.of(loser)));
         for (int winner : winners) {
             if (roundCounter % 4 == winner || roundCounter % 4 == loser) { // dealer involved
                 incompleteTransactions.put(List.of(loser, winner), 
                         incompleteTransactions.getOrDefault(List.of(loser, winner), 0) 
-                        + faan + BASE + 1 + (2 * continuance));
+                        + faan.get(winners.indexOf(winner)) + BASE + 1 + (2 * continuance));
             } else {
                 incompleteTransactions.put(List.of(loser, winner), 
                         incompleteTransactions.getOrDefault(List.of(loser, winner), 0) 
-                        + faan + BASE);
+                        + faan.get(winners.indexOf(winner)) + BASE);
             }
         }
         progressGame(!winners.contains(roundCounter % 4));
@@ -162,10 +162,6 @@ public class Game {
         return gamePlayerList.get(3).getPlayerId();
     }
 
-    public List<Account> getGamePlayerList() {
-        return gamePlayerList;
-    }
-
     public Integer getEastPlayerScore() {
         return gamePlayerScores.get(0);
     }
@@ -182,16 +178,8 @@ public class Game {
         return gamePlayerScores.get(3);
     }
 
-    public List<Integer> getGamePlayerScores() {
-        return gamePlayerScores;
-    }
-
     public String getCurrentRound() {
         return ROUNDS[roundCounter] + "-" + continuance;
-    }
-
-    public int getContinuance() {
-        return continuance;
     }
 
     public Map<List<Integer>, Integer> getIncompleteTransactions() {
