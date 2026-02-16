@@ -30,4 +30,13 @@ public class AccountList {
     public List<Account> getAccountList() {
         return accountList;
     }
+
+    // EFFECTS: returns a list of playerIds in the system
+    public List<String> getAccountNames() {
+        List<String> accountNames = new ArrayList<>();
+        for (Account account : accountList) {
+            accountNames.add(account.getPlayerId());
+        }
+        return accountNames;
+    }
 }

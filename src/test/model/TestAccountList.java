@@ -69,4 +69,12 @@ public class TestAccountList {
         testAccountList.removeAccount(player8);
         assertEquals(testAccountList.getAccountList(), List.of(player2));
     }
+
+    @Test
+    void testGetAccountNames() {
+        testAccountList.addAccount(player2);
+        testAccountList.addAccount(player6);
+        testAccountList.addAccount(player8);
+        assertEquals(testAccountList.getAccountNames(), List.of("hi", "6$", "154"));
+    }
 }
