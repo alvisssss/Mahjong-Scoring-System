@@ -19,6 +19,7 @@ public class Game {
     private List<Integer> gamePlayerScores;
     private int roundCounter;
     private int continuance;
+    private boolean gameEnd;
     private Map<List<Integer>, Integer> incompleteTransactions; // <List.of(from, to), amount>
 
     // REQUIRES: east, south, west, and north are not duplicates
@@ -39,6 +40,7 @@ public class Game {
         roundCounter = 0;
         continuance = 0;
         incompleteTransactions = new HashMap<>();
+        gameEnd = false;
     }
 
     // REQUIRES: faan > 0 AND winner != loser AND 0 <= winner, loser <= 3
@@ -99,7 +101,10 @@ public class Game {
                             + incompleteTransactions.get(transactionKey));
                     incompleteTransactions.remove(transactionKey);
                 }
-                // game ends
+                gameEnd = true; // Game ends
+                for (Account account : gamePlayerList) {
+                    account.changePlayerScore(gamePlayerScores.get(gamePlayerList.indexOf(account)));
+                }
             } else {
                 roundCounter++;
                 continuance = 0;
@@ -180,6 +185,14 @@ public class Game {
 
     public Map<List<Integer>, Integer> getIncompleteTransactions() {
         return incompleteTransactions;
+    }
+
+    public List<Account> getGamePlayerList() {
+        return gamePlayerList;
+    }
+
+    public boolean getGameEnd() {
+        return gameEnd;
     }
 
 
