@@ -3,6 +3,7 @@ package ui;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -170,27 +171,34 @@ public class ScoringSystem {
         currentGames.addGame(new Game(accounts.get(0), accounts.get(1), accounts.get(2), accounts.get(3)));
     }
 
+    // EFFECTS: displays the current ongoing games
     private void doViewGames() {
         System.out.println("Current ongoing games:");
         int counter = 0;
         for (Game game : currentGames.getGameList()) {
             System.out.println("Game " + counter + ": " + game.getEastPlayerId() + " " + game.getSouthPlayerId() 
                     + " " + game.getWestPlayerId() + " " + game.getNorthPlayerId());
+            counter++;
         }
-        System.out.println("Select the game number to enter (-1 to return to main menu) : ");
         while (true) {
-            int gameNumber = input.nextInt();
-            if (gameNumber == -1) {
-                break;
-            } else {
-                doEditGame(currentGames.getGameList().get(gameNumber));
-                break;
-            } 
+            System.out.println("Select the game number to enter (-1 to return to main menu) :");
+            try {
+                int gameNumber = input.nextInt();
+                if (gameNumber == -1) {
+                    break;
+                } else if (gameNumber >= 0 && gameNumber < counter) {
+                    doEditGame(currentGames.getGameList().get(gameNumber));
+                    break;
+                } 
+            } catch (InputMismatchException e) {
+                System.out.println("Not a number.");
+                input.nextLine();
+            }
         }
-        
         System.out.println();
     }
 
+    // EFFECTS: displays game options to user
     private void doEditGame(Game game) {
         while (!game.getGameEnd()) {
             displayGameMenu(game);
@@ -207,14 +215,17 @@ public class ScoringSystem {
             } else if (command.equals("r")) {
                 currentGames.removeGame(game);
                 break;
+            } else if (List.of("d", "s", "o", "e").contains(command)) {
+                processGameMenuCommand(command, game);
+            } else {
+                System.out.println("Invalid command.");
             }
-            processGameMenuCommand(command, game);
         }
 
 
     }
 
-    // EFFECTS: display game menu options to user
+    // EFFECTS: display game information to user
     private void displayGameMenu(Game game) {
         System.out.println("Game state: " + game.getCurrentRound());
         System.out.println("East player: " + game.getEastPlayerId() + " | Score: " + game.getEastPlayerScore());
@@ -223,7 +234,7 @@ public class ScoringSystem {
         System.out.println("North player: " + game.getNorthPlayerId() + " | Score: " + game.getNorthPlayerScore());
     }
 
-    // EFFECTS: process command on main menu
+    // EFFECTS: process command on game menu
     private void processGameMenuCommand(String command, Game game) {
         switch (command) {
             case "d":
@@ -241,30 +252,48 @@ public class ScoringSystem {
         }
     }
 
+    // EFFECTS: records the game as self draw
     private void processSelfDraw(Game game) {
-        System.out.println("Please enter winner position [East = 0, North = 3]: ");
-        int winner = input.nextInt();        
-        System.out.println("Please enter winning hand size (faan): ");
-        int faan = input.nextInt();
-        game.selfDraw(winner, faan);
-
-    }
-
-    private void processExtraTransaction(Game game) {
-        System.out.println("Please enter transaction amount of players from east to north, separated by space: ");
-        String[] inputLine = input.nextLine().split(" ");
-        int[] amountArray = new int[4];
-        for (int i = 0; i < 4; i++) {
-            amountArray[i] = Integer.parseInt(inputLine[i]);
+        while (true) {
+            try {
+                System.out.println("Please enter winner position [East = 0, North = 3]: ");
+                int winner = input.nextInt();        
+                System.out.println("Please enter winning hand size (faan): ");
+                int faan = input.nextInt();
+                game.selfDraw(winner, faan);
+                break;
+            } catch (InputMismatchException e) {
+                System.out.println("Not a number.");
+                input.nextLine();
+            }            
         }
-        game.extraTransaction(amountArray[0], amountArray[1], amountArray[2], amountArray[3]);
     }
 
+    // EFFECTS: records the game with extra transactions
+    private void processExtraTransaction(Game game) {
+        while (true) {
+            try {
+                System.out.println("Please enter transaction amount of players from east to north, " +
+                        "separated by space: ");
+                String[] inputLine = input.nextLine().split(" ");
+                int[] amountArray = new int[4];
+                for (int i = 0; i < 4; i++) {
+                    amountArray[i] = Integer.parseInt(inputLine[i]);
+                }
+                game.extraTransaction(amountArray[0], amountArray[1], amountArray[2], amountArray[3]);
+                break;
+            } catch (NumberFormatException e) {
+                System.out.println("Not a number.");
+            }            
+        }
+    }
+
+    // EFFECTS: records the game as deal in
     private void processDealIn(Game game) {
         System.out.println("Please enter loser position [East = 0, North = 3]: ");
-        int loser = input.nextInt();  
+        int loser = input.nextInt();
         System.out.println("Please enter winner(s), separated by space [East = 0, North = 3]: ");
-        String[] inputLine = input.nextLine().split(" ");   
+        String[] inputLine = input.nextLine().split(" ");
         List<Integer> winnerList = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
             winnerList.add(Integer.parseInt(inputLine[i]));
