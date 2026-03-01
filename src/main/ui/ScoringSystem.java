@@ -7,11 +7,13 @@ import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
+import ca.ubc.cs.ExcludeFromJacocoGeneratedReport;
 import model.Account;
 import model.AccountList;
 import model.Game;
 import model.GameList;
 
+@ExcludeFromJacocoGeneratedReport
 // Mahjong Scoring System application
 public class ScoringSystem {
 
@@ -232,6 +234,7 @@ public class ScoringSystem {
         System.out.println("South player: " + game.getSouthPlayerId() + " | Score: " + game.getSouthPlayerScore());
         System.out.println("West player: " + game.getWestPlayerId() + " | Score: " + game.getWestPlayerScore());
         System.out.println("North player: " + game.getNorthPlayerId() + " | Score: " + game.getNorthPlayerScore());
+        System.out.println("Last transactions: " + game.getLastTransaction().toString());
     }
 
     // EFFECTS: process command on game menu
@@ -292,18 +295,10 @@ public class ScoringSystem {
     private void processDealIn(Game game) {
         System.out.println("Please enter loser position [East = 0, North = 3]: ");
         int loser = input.nextInt();
-        System.out.println("Please enter winner(s), separated by space [East = 0, North = 3]: ");
-        String[] inputLine = input.nextLine().split(" ");
-        List<Integer> winnerList = new ArrayList<>();
-        for (int i = 0; i < 4; i++) {
-            winnerList.add(Integer.parseInt(inputLine[i]));
-        }   
+        System.out.println("Please enter winner position [East = 0, North = 3]: ");
+        int winner = input.nextInt();
         System.out.println("Please enter corresponding winning hand size (faan): ");
-        String[] inputLine2 = input.nextLine().split(" ");   
-        List<Integer> faanList = new ArrayList<>();
-        for (String size : inputLine2) {
-            faanList.add(Integer.parseInt(size));
-        }
-        game.dealIn(winnerList, loser, faanList);
+        int faan = input.nextInt();
+        game.dealIn(winner, loser, faan);
     }
 }
