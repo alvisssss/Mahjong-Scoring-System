@@ -43,22 +43,22 @@ public class JsonAccountsReader { // Structure based on JsonSerializationDemo
 
     // EFFECTS: parses list of accounts from JSON object and returns it
     private AccountList parseAccountList(JSONObject jsonObject) {
-        AccountList accountlist = new AccountList();
+        AccountList accountList = new AccountList();
         JSONArray jsonArray = jsonObject.getJSONArray("accounts");
         for (Object json : jsonArray) {
             JSONObject nextObject = (JSONObject) json;
-            addAccount(accountlist, nextObject);
+            addAccount(accountList, nextObject);
         }
-        return accountlist;
+        return accountList;
     }
 
-    // MODIFIES: accountlist
-    // EFFECTS: parses an account from JSON object and adds it to accountlist
-    private void addAccount(AccountList accountlist, JSONObject jsonObject) {
+    // MODIFIES: accountList
+    // EFFECTS: parses an account from JSON object and adds it to accountList
+    private void addAccount(AccountList accountList, JSONObject jsonObject) {
         String name = jsonObject.getString("playerId");
         int score = jsonObject.getInt("score");
         Account account = new Account(name);
         account.changePlayerScore(score);
-        accountlist.addAccount(account);
+        accountList.addAccount(account);
     }
 }
