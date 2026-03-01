@@ -6,7 +6,7 @@ import java.util.List;
 // Represents a game of mahjong with players in their corresponding seats.
 public class Game {
 
-    private static final String[] ROUNDS = {"E1", "E2", "E3", "E4",
+    public static final String[] ROUNDS = {"E1", "E2", "E3", "E4",
             "S1", "S2", "S3", "S4",
             "W1", "W2", "W3", "W4",
             "N1", "N2", "N3", "N4"};
@@ -197,6 +197,28 @@ public class Game {
 
     public List<Integer> getLastTransaction() {
         return lastTransaction;
+    }
+
+    public int getLastWinner() {
+        return lastWinner;
+    }
+
+    public List<Integer> getlastLosers() {
+        return lastLosers;
+    }
+
+    // MODIFIES: this
+    // EFFECTS: sets up the game, used exclusively in restoring the game state
+    public void setup(List<Integer> playerScores, List<Integer> lastTransaction, int round, int continuance,
+                int lastWinner, List<Integer> lastLosers) {
+        extraTransaction(playerScores);
+        this.lastTransaction = lastTransaction;
+        this.roundCounter = round;
+        this.continuance = continuance;
+        this.lastWinner = lastWinner;
+        this.lastLosers = lastLosers;
+
+
     }
 
 
