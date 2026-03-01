@@ -2,10 +2,7 @@ package model;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -47,7 +44,6 @@ public class TestGame {
     @Test
     void testDealerDealIn() {
         testGame.dealIn(2, 0, 10);
-        Map<List<Integer>, Integer> map = new HashMap<>();
         assertEquals(testGame.getCurrentRound(), "E2-0");
         assertEquals(testGame.getLastTransaction(), List.of(-16, 0, 16, 0));
     }
