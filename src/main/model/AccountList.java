@@ -3,6 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import persistence.Writable;
@@ -46,7 +47,12 @@ public class AccountList implements Writable{
 
     @Override
     public JSONObject toJson() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'toJson'");
+        JSONObject json = new JSONObject();
+        JSONArray jsonArray = new JSONArray();
+        for (Account account : accountList) {
+            jsonArray.put(account.toJson());
+        }
+        json.put("accounts", jsonArray);
+        return json;
     }
 }

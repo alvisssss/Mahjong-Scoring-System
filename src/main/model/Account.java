@@ -1,7 +1,11 @@
 package model;
 
+import org.json.JSONObject;
+
+import persistence.Writable;
+
 // Represents an account for the scoring system.
-public class Account {
+public class Account implements Writable {
 
     private String playerId;
     private int playerScore;
@@ -26,6 +30,14 @@ public class Account {
 
     public String getPlayerId() {
         return playerId;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("playerId", playerId);
+        json.put("score", playerScore);
+        return json;
     }
 
 }
