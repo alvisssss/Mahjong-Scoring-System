@@ -131,7 +131,7 @@ public class Game {
 
     // MODIFIES: this
     // EFFECTS: helper method for processing current incomplete transactions
-    public void processLastTransaction(int winner, List<Integer> losers) {
+    private void processLastTransaction(int winner, List<Integer> losers) {
             if (winner != lastWinner) { // Winner is not winner of last round
                 if (lastLosers.contains(winner) && losers.contains(lastWinner)) {
                     int returnAmount = (int) Math.floor((Math.abs(lastTransaction.get(winner)) * 0.5));
@@ -140,6 +140,7 @@ public class Game {
                 }
                 extraTransaction(lastTransaction);
                 lastTransaction.replaceAll(n -> 0);
+                lastWinner = winner;
             } else { // Winner is winner of last round
                 for (int loser : losers) {
                     if (lastLosers.contains(loser)) {
@@ -149,7 +150,6 @@ public class Game {
                     }                    
                 }
             }
-            lastWinner = winner;
             lastLosers = losers;
     }
 
