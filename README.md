@@ -15,3 +15,5 @@ While the application does not implement the actual game, here is a link to the 
 - As a user, I want to be able to remove a current game.
 - As a user, I want to be able to remove an account from the system.
 - As a user, I want to be able to see analysis of a player, such as their win rate and average Faan of winning hand.
+- As a user, when I select the quit option from the application menu, I want to be reminded to save all current games and have the option to do so or not.
+- As a user, when I start the application, I want to be given the option to load unfinished games from file.
