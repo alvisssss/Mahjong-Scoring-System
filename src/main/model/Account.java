@@ -15,7 +15,7 @@ public class Account {
 
     // MODIFIES: this
     // EFFECTS: change the player's score by the given amount
-    void changePlayerScore(int score) {
+    public void changePlayerScore(int score) {
         playerScore += score;
     }
 
