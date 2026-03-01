@@ -1,0 +1,16 @@
+{
+    "accounts" : [
+        {
+            "playerId": "yolo",
+            "score": 150
+        },
+        {
+            "playerId": "idk",
+            "score": -246
+        },
+        {
+            "playerId": "hi there",
+            "score": 0
+        }
+    ]
+}
