@@ -20,7 +20,9 @@ public class Game {
     private int roundCounter;
     private int continuance;
     private boolean gameEnd;
-    private Map<List<Integer>, Integer> incompleteTransactions; // <List.of(from, to), amount>
+    private List<Integer> lastTransaction;
+    private int lastWinner;
+    private List<Integer> lastLosers;
 
     // REQUIRES: east, south, west, and north are not duplicates
     // EFFECTS: Creates a game with players in corresponding seats in a list,
@@ -39,47 +41,46 @@ public class Game {
         gamePlayerScores.add(0);
         roundCounter = 0;
         continuance = 0;
-        incompleteTransactions = new HashMap<>();
         gameEnd = false;
+        lastTransaction = new ArrayList<>(List.of(0, 0, 0, 0));
+        lastWinner = -1;
+        lastLosers = new ArrayList<>();
     }
 
     // REQUIRES: faan > 0 AND winner != loser AND 0 <= winner, loser <= 3
     // MODIFIES: this
     // EFFECTS: records the game as deal in and progress the game
-    public void dealIn(List<Integer> winners, int loser, List<Integer> faan) {
-        processIncompleteTransactions(winners, new ArrayList<Integer>(List.of(loser)));
-        for (int winner : winners) {
-            if (roundCounter % 4 == winner || roundCounter % 4 == loser) { // dealer involved
-                incompleteTransactions.put(List.of(loser, winner), 
-                        incompleteTransactions.getOrDefault(List.of(loser, winner), 0) 
-                        + faan.get(winners.indexOf(winner)) + BASE + 1 + (2 * continuance));
-            } else {
-                incompleteTransactions.put(List.of(loser, winner), 
-                        incompleteTransactions.getOrDefault(List.of(loser, winner), 0) 
-                        + faan.get(winners.indexOf(winner)) + BASE);
-            }
+    public void dealIn(int winner, int loser, int faan) {
+        processLastTransaction(winner, List.of(loser));
+        int score = faan + BASE;
+        if (roundCounter % 4 == winner || roundCounter % 4 == loser) { // dealer involved
+            lastTransaction.set(loser, lastTransaction.get(loser) - score - 1 - (2 * continuance));
+            lastTransaction.set(winner, lastTransaction.get(winner) + score + 1 + (2 * continuance));
+        } else {
+            lastTransaction.set(loser, lastTransaction.get(loser) - score);
+            lastTransaction.set(winner, lastTransaction.get(winner) + score);
         }
-        progressGame(!winners.contains(roundCounter % 4));
+        progressGame(roundCounter % 4 != winner);
     }
 
     // REQUIRES: faan > 0 AND 0 <= winner <= 3
     // MODIFIES: this
     // EFFECTS: records the game as winner self draw and progress the game
     public void selfDraw(int winner, int faan) {
+        int score = faan + BASE;
+        int extra = 0;
         List<Integer> losers = new ArrayList<>(SEAT_NUMBERS);
         losers.remove(winner);
-        processIncompleteTransactions(new ArrayList<>(List.of(winner)), losers);
+        processLastTransaction(winner, losers);
         for (int loser : losers) {
             if (roundCounter % 4 == winner || roundCounter % 4 == loser) { // dealer involved
-                incompleteTransactions.put(List.of(loser, winner), 
-                        incompleteTransactions.getOrDefault(List.of(loser, winner), 0) 
-                        + faan + BASE + 1 + (2 * continuance));
+                lastTransaction.set(loser, lastTransaction.get(loser) - score - 1 - (2 * continuance));
+                extra++;
             } else {
-                incompleteTransactions.put(List.of(loser, winner), 
-                        incompleteTransactions.getOrDefault(List.of(loser, winner), 0) 
-                        + faan + BASE);
+                lastTransaction.set(loser, lastTransaction.get(loser) - score);
             }
         }
+        lastTransaction.set(winner, lastTransaction.get(winner) + 3 * score + extra * (1 + (2 * continuance)));
         progressGame(roundCounter % 4 != winner);
     }
 
@@ -94,13 +95,7 @@ public class Game {
     private void progressGame(boolean nextRound) {
         if (nextRound) {
             if (roundCounter == 15) {
-                for (List<Integer> transactionKey: incompleteTransactions.keySet()) {
-                    gamePlayerScores.set(transactionKey.get(0), transactionKey.get(0) 
-                            - incompleteTransactions.get(transactionKey));
-                    gamePlayerScores.set(transactionKey.get(1), transactionKey.get(1) 
-                            + incompleteTransactions.get(transactionKey));
-                    incompleteTransactions.remove(transactionKey);
-                }
+                extraTransaction(lastTransaction);
                 gameEnd = true; // Game ends
                 for (Account account : gamePlayerList) {
                     account.changePlayerScore(gamePlayerScores.get(gamePlayerList.indexOf(account)));
@@ -124,27 +119,38 @@ public class Game {
         gamePlayerScores.set(3, getNorthPlayerScore() + north);
     }
 
+    // REQUIRES: scores size is 4
+    // MODIFIES: this
+    // EFFECTS: change the corresponding player's score in the game by the given amount
+    public void extraTransaction(List<Integer> scores) {
+        gamePlayerScores.set(0, getEastPlayerScore() + scores.get(0));
+        gamePlayerScores.set(1, getSouthPlayerScore() + scores.get(1));
+        gamePlayerScores.set(2, getWestPlayerScore() + scores.get(2));
+        gamePlayerScores.set(3, getNorthPlayerScore() + scores.get(3));
+    }
+
     // MODIFIES: this
     // EFFECTS: helper method for processing current incomplete transactions
-    private void processIncompleteTransactions(List<Integer> winners, List<Integer> losers) {
-        for (List<Integer> transactionKey : incompleteTransactions.keySet()) {
-            int lastLoser = transactionKey.get(0);
-            int lastWinner = transactionKey.get(1);
-            int amount = incompleteTransactions.get(transactionKey);
-            if (!winners.contains(lastWinner)) { // Winner is not winner of last round
-                if (winners.contains(lastLoser) && losers.contains(lastWinner)) {
-                    amount = (amount + 1) / 2;
+    public void processLastTransaction(int winner, List<Integer> losers) {
+            if (winner != lastWinner) { // Winner is not winner of last round
+                if (lastLosers.contains(winner) && losers.contains(lastWinner)) {
+                    int returnAmount = (int) Math.floor((Math.abs(lastTransaction.get(winner)) * 0.5));
+                    lastTransaction.set(winner, lastTransaction.get(winner) + returnAmount);
+                    lastTransaction.set(lastWinner, lastTransaction.get(lastWinner) - returnAmount);
                 }
-                gamePlayerScores.set(lastLoser, gamePlayerScores.get(lastLoser) - amount);
-                gamePlayerScores.set(lastWinner, gamePlayerScores.get(lastWinner) + amount);                
-                incompleteTransactions.remove(transactionKey);
+                extraTransaction(lastTransaction);
+                lastTransaction.replaceAll(n -> 0);
             } else { // Winner is winner of last round
-                if (losers.contains(lastLoser)) {
-                    amount = (int) (amount * 1.5 + 1);
-                    incompleteTransactions.put(transactionKey, amount);
+                for (int loser : losers) {
+                    if (lastLosers.contains(loser)) {
+                        int extraAmount = (int) Math.ceil((Math.abs(lastTransaction.get(loser)) * 0.5));
+                        lastTransaction.set(loser, lastTransaction.get(loser) - extraAmount);
+                        lastTransaction.set(winner, lastTransaction.get(winner) + extraAmount);
+                    }                    
                 }
             }
-        }
+            lastWinner = winner;
+            lastLosers = losers;
     }
 
     public String getEastPlayerId() {
@@ -183,16 +189,16 @@ public class Game {
         return ROUNDS[roundCounter] + "-" + continuance;
     }
 
-    public Map<List<Integer>, Integer> getIncompleteTransactions() {
-        return incompleteTransactions;
-    }
-
     public List<Account> getGamePlayerList() {
         return gamePlayerList;
     }
 
     public boolean getGameEnd() {
         return gameEnd;
+    }
+
+    public List<Integer> getLastTransaction() {
+        return lastTransaction;
     }
 
 
