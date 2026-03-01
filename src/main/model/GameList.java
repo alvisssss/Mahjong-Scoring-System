@@ -3,8 +3,12 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONObject;
+
+import persistence.Writable;
+
 // Represents a list of ongoing games
-public class GameList {
+public class GameList implements Writable{
 
     private List<Game> gameList;
 
@@ -29,6 +33,12 @@ public class GameList {
 
     public List<Game> getGameList() {
         return gameList;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'toJson'");
     }
 
     

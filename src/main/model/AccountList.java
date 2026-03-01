@@ -3,8 +3,12 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONObject;
+
+import persistence.Writable;
+
 // Represents a list of created accounts in the system.
-public class AccountList {
+public class AccountList implements Writable{
 
     private List<Account> accountList;
     
@@ -38,5 +42,11 @@ public class AccountList {
             accountNames.add(account.getPlayerId());
         }
         return accountNames;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'toJson'");
     }
 }
