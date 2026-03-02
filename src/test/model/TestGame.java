@@ -38,6 +38,7 @@ public class TestGame {
         assertEquals(testGame.getNorthPlayerScore(), 0);
         assertEquals(testGame.getCurrentRound(), "E1-0");
         assertEquals(testGame.getGamePlayerList(), List.of(player1, player2, player3, player4));
+        assertEquals(testGame.getLastTransaction(), List.of(0, 0, 0, 0));
         assertFalse(testGame.getGameEnd());
     }
 
