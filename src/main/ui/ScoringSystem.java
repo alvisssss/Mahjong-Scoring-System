@@ -1,5 +1,7 @@
 package ui;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -12,43 +14,69 @@ import model.Account;
 import model.AccountList;
 import model.Game;
 import model.GameList;
+import persistence.JsonAccountsReader;
+import persistence.JsonAccountsWriter;
+import persistence.JsonGamesReader;
+import persistence.JsonGamesWriter;
 
 @ExcludeFromJacocoGeneratedReport
 // Mahjong Scoring System application
 public class ScoringSystem {
 
+    private static final String JSON_ACCOUNT_STORE = "./data/accounts.json";
+    private static final String JSON_GAME_STORE = "./data/games.json";
+
     private GameList currentGames;
     private AccountList accounts;
     private Scanner input;
 
+    private JsonAccountsReader accountReader;
+    private JsonAccountsWriter accountWriter;
+    private JsonGamesReader gameReader;
+    private JsonGamesWriter gameWriter;
+
     // EFFECTS: run the application
     public ScoringSystem() {
+        accountReader = new JsonAccountsReader(JSON_ACCOUNT_STORE);
+        accountWriter = new JsonAccountsWriter(JSON_ACCOUNT_STORE);
         runSystem();
     }
 
     // EFFECTS: process user input
     private void runSystem() { // Structure based on TellerApp
 
-        boolean running = true;
-        currentGames = new GameList();
-        accounts = new AccountList();
-        input = new Scanner(System.in);
+        try {
+            accounts = accountReader.read(); // auto-load accounts
+            boolean running = true;
+            currentGames = new GameList();
+            input = new Scanner(System.in);
 
-        while (running) {
-            displayMainMenu();
-            if (running) {
-                String command = input.next();
-                if (command.equals("x")) {
-                    running = false;
-                } else if (List.of("p", "c", "a", "r", "g").contains(command)) {
-                    processMainMenuCommand(command);
+            gameReader = new JsonGamesReader(JSON_GAME_STORE, accounts);
+            gameWriter = new JsonGamesWriter(JSON_GAME_STORE);
+
+            while (running) {
+                displayMainMenu();
+                if (running) {
+                    String command = input.next();
+                    if (command.equals("x")) {
+                        accountWriter.open();
+                        accountWriter.write(accounts);
+                        accountWriter.close();
+                        promptSaveGame();
+                        running = false;
+                    } else if (List.of("p", "c", "a", "r", "g", "l").contains(command)) {
+                        processMainMenuCommand(command);
+                    } else {
+                        System.out.println("Invalid command.");
+                    }
                 } else {
-                    System.out.println("Invalid command.");
+                    running = false;
                 }
-            } else {
-                running = false;
             }
+        } catch (IOException e) {
+            System.out.println("File corrupted or missing at " + JSON_ACCOUNT_STORE);
         }
+
     }
 
     // EFFECTS: display main menu options to user
@@ -58,7 +86,8 @@ public class ScoringSystem {
         System.out.println("c - create a new game");
         System.out.println("a - create a new account");
         System.out.println("r - remove an existing account");
-        System.out.println("g - view current ongoing games\n");
+        System.out.println("g - view current ongoing games");
+        System.out.println("l - load unfinished games from file\n");
         System.out.println("x - close the application\n");
 
     }
@@ -80,6 +109,14 @@ public class ScoringSystem {
                 break;
             case "g":
                 doViewGames();
+                break;
+            case "l":
+                try {
+                    currentGames = gameReader.read();
+                    System.out.println("Loaded games from " + JSON_GAME_STORE + "!\n");
+                } catch (IOException e) {
+                    System.out.println("File corrupted or missing at " + JSON_GAME_STORE);
+                }
                 break;
         }
     }
@@ -225,6 +262,24 @@ public class ScoringSystem {
         }
 
 
+    }
+
+    // EFFECTS: prompts the user to save all unfinished games
+    private void promptSaveGame() {
+        System.out.println("Would you like to save all unfinished game(s)? [y/n]\n");
+        String response = input.next();
+        if (!response.equals("n")) {
+            try {
+                gameWriter.open();
+                gameWriter.write(currentGames);
+                gameWriter.close();
+                System.out.println("Game(s) saved succesfully at " + JSON_GAME_STORE + "!\n");
+            } catch (FileNotFoundException e) {
+                System.out.println("Unable to save due to file missing at " + JSON_GAME_STORE + ".");
+            }
+
+            
+        }
     }
 
     // EFFECTS: display game information to user
