@@ -1,0 +1,38 @@
+{
+    "games": [
+        {
+            "playerIds": [
+                "a", "b", "c", "ERROR"
+            ],
+            "playerScores": [
+                100, -20, -31, 0
+            ],
+            "roundCounter": 2,
+            "continuance": 0,
+            "lastWinner": 0,
+            "lastLosers": [
+                1
+            ],
+            "lastTransaction": [
+                15, -15, 0, 0
+            ]
+        },
+        {
+            "playerIds": [
+                "b", "d", "a", "c"
+            ],
+            "playerScores": [
+                -400, 500, -1, 37
+            ],
+            "roundCounter": 5,
+            "continuance": 3,
+            "lastWinner": 1,
+            "lastLosers": [
+                0, 2, 3
+            ],
+            "lastTransaction": [
+                -200, 400, -100, -100
+            ]
+        }
+    ]
+}

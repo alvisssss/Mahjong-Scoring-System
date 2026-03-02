@@ -77,4 +77,15 @@ public class TestGamesReader extends JsonGamesTest {
             fail("Couldn't read from file");
         }
     }
+
+    @Test
+    public void testReaderFaultyGameList() {
+        JsonGamesReader reader = new JsonGamesReader("./data/testReaderFaultyGameList.json", testAccountList);
+        try {
+            GameList games = reader.read();
+            fail("IO Exception expected");
+        } catch (IOException e) {
+            // pass
+        }
+    }
 }
