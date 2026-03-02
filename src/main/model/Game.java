@@ -3,8 +3,13 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import persistence.Writable;
+
 // Represents a game of mahjong with players in their corresponding seats.
-public class Game {
+public class Game implements Writable {
 
     public static final String[] ROUNDS = {"E1", "E2", "E3", "E4",
             "S1", "S2", "S3", "S4",
@@ -219,6 +224,23 @@ public class Game {
         this.lastLosers = lastLosers;
 
 
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        List<String> playerIds = new ArrayList<>();
+        for (Account player : gamePlayerList) {
+            playerIds.add(player.getPlayerId());
+        }
+        json.put("playerIds", new JSONArray(playerIds));
+        json.put("playerScores", new JSONArray(gamePlayerScores));
+        json.put("roundCounter", roundCounter);
+        json.put("continuance", continuance);
+        json.put("lastWinner", lastWinner);
+        json.put("lastLosers", new JSONArray(lastLosers));
+        json.put("lastTransaction", new JSONArray(lastTransaction));
+        return json;
     }
 
 

@@ -46,7 +46,7 @@ public class TestAccountsWriter extends JsonAccountsTest {
     }
 
     @Test
-    public void testWriterGeneralWorkroom() {
+    public void testWriterGeneralGameList() {
         try {
             AccountList accounts = new AccountList();
             Account player1 = new Account("what");
