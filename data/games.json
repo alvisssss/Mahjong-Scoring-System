@@ -1,24 +1,50 @@
-{"games": [{
-    "lastWinner": 1,
-    "playerScores": [
-        -1484,
-        -742,
-        -1483,
-        3709
-    ],
-    "continuance": 1,
-    "lastTransaction": [
-        0,
-        16,
-        0,
-        -16
-    ],
-    "lastLosers": [3],
-    "playerIds": [
-        "b",
-        "c",
-        "d",
-        "ahf"
-    ],
-    "roundCounter": 1
-}]}
+{"games": [
+    {
+        "lastWinner": 2,
+        "playerScores": [
+            -106,
+            316,
+            -105,
+            -105
+        ],
+        "continuance": 0,
+        "lastTransaction": [
+            0,
+            0,
+            39,
+            -39
+        ],
+        "lastLosers": [3],
+        "playerIds": [
+            "c",
+            "d",
+            "ahf",
+            "ush"
+        ],
+        "roundCounter": 2
+    },
+    {
+        "lastWinner": 1,
+        "playerScores": [
+            100,
+            -385,
+            729,
+            -24
+        ],
+        "continuance": 0,
+        "lastTransaction": [
+            0,
+            45,
+            0,
+            -45
+        ],
+        "lastLosers": [3],
+        "playerIds": [
+            "12rf",
+            "ush",
+            "ahf",
+            "c"
+        ],
+        "roundCounter": 1
+    }
+]}

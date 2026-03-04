@@ -135,25 +135,25 @@ public class Game implements Writable {
     // MODIFIES: this
     // EFFECTS: helper method for processing current incomplete transactions
     private void processLastTransaction(int winner, List<Integer> losers) {
-            if (winner != lastWinner) { // Winner is not winner of last round
-                if (lastLosers.contains(winner) && losers.contains(lastWinner)) {
-                    int returnAmount = (int) Math.floor((Math.abs(lastTransaction.get(winner)) * 0.5));
-                    lastTransaction.set(winner, lastTransaction.get(winner) + returnAmount);
-                    lastTransaction.set(lastWinner, lastTransaction.get(lastWinner) - returnAmount);
-                }
-                extraTransaction(lastTransaction);
-                lastTransaction.replaceAll(n -> 0);
-                lastWinner = winner;
-            } else { // Winner is winner of last round
-                for (int loser : losers) {
-                    if (lastLosers.contains(loser)) {
-                        int extraAmount = (int) Math.ceil((Math.abs(lastTransaction.get(loser)) * 0.5));
-                        lastTransaction.set(loser, lastTransaction.get(loser) - extraAmount);
-                        lastTransaction.set(winner, lastTransaction.get(winner) + extraAmount);
-                    }                    
-                }
+        if (winner != lastWinner) { // Winner is not winner of last round
+            if (lastLosers.contains(winner) && losers.contains(lastWinner)) {
+                int returnAmount = (int) Math.floor((Math.abs(lastTransaction.get(winner)) * 0.5));
+                lastTransaction.set(winner, lastTransaction.get(winner) + returnAmount);
+                lastTransaction.set(lastWinner, lastTransaction.get(lastWinner) - returnAmount);
             }
-            lastLosers = losers;
+            extraTransaction(lastTransaction);
+            lastTransaction.replaceAll(n -> 0);
+            lastWinner = winner;
+        } else { // Winner is winner of last round
+            for (int loser : losers) {
+                if (lastLosers.contains(loser)) {
+                    int extraAmount = (int) Math.ceil((Math.abs(lastTransaction.get(loser)) * 0.5));
+                    lastTransaction.set(loser, lastTransaction.get(loser) - extraAmount);
+                    lastTransaction.set(winner, lastTransaction.get(winner) + extraAmount);
+                }                    
+            }
+        }
+        lastLosers = losers;
     }
 
     public String getEastPlayerId() {

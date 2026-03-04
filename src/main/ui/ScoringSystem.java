@@ -37,46 +37,42 @@ public class ScoringSystem {
 
     // EFFECTS: run the application
     public ScoringSystem() {
+        currentGames = new GameList();
         accountReader = new JsonAccountsReader(JSON_ACCOUNT_STORE);
         accountWriter = new JsonAccountsWriter(JSON_ACCOUNT_STORE);
-        runSystem();
+        gameWriter = new JsonGamesWriter(JSON_GAME_STORE);
+        input = new Scanner(System.in);
+        try {
+            accounts = accountReader.read();
+            gameReader = new JsonGamesReader(JSON_GAME_STORE, accounts);
+            runSystem();
+        } catch (IOException e) {
+            System.out.println("File corrupted or missing at " + JSON_ACCOUNT_STORE);
+        }
     }
 
     // EFFECTS: process user input
     private void runSystem() { // Structure based on TellerApp
-
+        boolean running = true;
         try {
-            accounts = accountReader.read(); // auto-load accounts
-            boolean running = true;
-            currentGames = new GameList();
-            input = new Scanner(System.in);
-
-            gameReader = new JsonGamesReader(JSON_GAME_STORE, accounts);
-            gameWriter = new JsonGamesWriter(JSON_GAME_STORE);
-
             while (running) {
                 displayMainMenu();
-                if (running) {
-                    String command = input.next();
-                    if (command.equals("x")) {
-                        accountWriter.open();
-                        accountWriter.write(accounts);
-                        accountWriter.close();
-                        promptSaveGame();
-                        running = false;
-                    } else if (List.of("p", "c", "a", "r", "g", "l").contains(command)) {
-                        processMainMenuCommand(command);
-                    } else {
-                        System.out.println("Invalid command.");
-                    }
-                } else {
+                String command = input.next();
+                if (command.equals("x")) {
+                    accountWriter.open();
+                    accountWriter.write(accounts);
+                    accountWriter.close();
+                    promptSaveGame();
                     running = false;
+                } else if (List.of("p", "c", "a", "r", "g", "l").contains(command)) {
+                    processMainMenuCommand(command);
+                } else {
+                    System.out.println("Invalid command.");
                 }
             }
-        } catch (IOException e) {
+        } catch (FileNotFoundException e) {
             System.out.println("File corrupted or missing at " + JSON_ACCOUNT_STORE);
         }
-
     }
 
     // EFFECTS: display main menu options to user
@@ -92,6 +88,7 @@ public class ScoringSystem {
 
     }
 
+    @SuppressWarnings("methodlength")
     // EFFECTS: process command on main menu
     private void processMainMenuCommand(String command) {
         switch (command) {
@@ -331,8 +328,8 @@ public class ScoringSystem {
     private void processExtraTransaction(Game game) {
         while (true) {
             try {
-                System.out.println("Please enter transaction amount of players from east to north, " +
-                        "separated by space: ");
+                System.out.println("Please enter transaction amount of players from east to north, "
+                        + "separated by space: ");
                 String[] inputLine = input.nextLine().split(" ");
                 int[] amountArray = new int[4];
                 for (int i = 0; i < 4; i++) {

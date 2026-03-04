@@ -9,7 +9,7 @@ import org.json.JSONObject;
 import persistence.Writable;
 
 // Represents a list of created accounts in the system.
-public class AccountList implements Writable{
+public class AccountList implements Writable {
 
     private List<Account> accountList;
     

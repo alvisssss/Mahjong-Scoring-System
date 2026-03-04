@@ -9,7 +9,7 @@ import org.json.JSONObject;
 import persistence.Writable;
 
 // Represents a list of ongoing games
-public class GameList implements Writable{
+public class GameList implements Writable {
 
     private List<Game> gameList;
 
