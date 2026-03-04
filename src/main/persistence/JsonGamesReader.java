@@ -77,6 +77,8 @@ public class JsonGamesReader { // Structure based on JsonSerializationDemo
         gameList.addGame(game);
     }
 
+    // MODIFIES: game
+    // EFFECTS: helper method for restoring game states
     private void addGameSetup(Game game, JSONObject jsonObject) {
         List<Integer> scores = new ArrayList<>();
         List<Integer> lastTransaction = new ArrayList<>();
