@@ -73,6 +73,24 @@ public class TestGame {
     }
 
     @Test
+    void testLastTransactionWinnerIsLastLoser() {
+        testGame.dealIn(3, 2, 10);
+        testGame.dealIn(2, 1, 17);
+        assertEquals(testGame.getLastTransaction(), List.of(0, -23, 23, 0));
+        assertEquals(testGame.getWestPlayerScore(), -15);
+        assertEquals(testGame.getNorthPlayerScore(), 15);
+    }
+
+    @Test
+    void testLastTransactionLoserIsLastWinner() {
+        testGame.dealIn(3, 2, 10);
+        testGame.dealIn(0, 3, 17);
+        assertEquals(testGame.getLastTransaction(), List.of(22, 0, 0, -22));
+        assertEquals(testGame.getWestPlayerScore(), -15);
+        assertEquals(testGame.getNorthPlayerScore(), 15);
+    }
+
+    @Test
     void testLastTransactionWinnerIsNotLastWinnerOrLastLoser() {
         testGame.dealIn(3, 2, 10);
         testGame.selfDraw(0, 17);
@@ -86,6 +104,13 @@ public class TestGame {
         testGame.dealIn(3, 2, 10);
         testGame.dealIn(3, 2, 21);
         assertEquals(testGame.getLastTransaction(), List.of(0, 0, -49, 49));
+    }
+
+    @Test
+    void testLastTransactionSameWinnerDifferentLoser() {
+        testGame.dealIn(3, 2, 10);
+        testGame.dealIn(3, 0, 21);
+        assertEquals(testGame.getLastTransaction(), List.of(-26, 0, -15, 41));
     }
 
     @Test
