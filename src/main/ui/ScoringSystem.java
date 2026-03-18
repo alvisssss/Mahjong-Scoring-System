@@ -1,5 +1,7 @@
 package ui;
 
+import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -13,6 +15,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import ca.ubc.cs.ExcludeFromJacocoGeneratedReport;
 import model.Account;
@@ -60,9 +63,19 @@ public class ScoringSystem extends JFrame {
         }
     }
 
+    // EFFECTS: helper method for setup
     private void graphicsSetup() {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        add(new MainPanel());
+        setSize(new Dimension(600, 600));
+        JPanel cardPanel = new JPanel();
+        CardLayout cardLayout = new CardLayout();
+        cardPanel.setLayout(cardLayout);
+
+        cardPanel.add(new MainPanel(cardPanel, cardLayout), "Main");
+        cardPanel.add(new PlayerPanel(cardPanel, cardLayout), "Player");
+        cardLayout.show(cardPanel, "Main");
+
+        getContentPane().add(cardPanel, BorderLayout.CENTER);
         pack();
         setVisible(true);
         setResizable(false);
