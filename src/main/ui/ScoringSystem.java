@@ -1,5 +1,8 @@
 package ui;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -8,6 +11,8 @@ import java.util.HashSet;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
+
+import javax.swing.JFrame;
 
 import ca.ubc.cs.ExcludeFromJacocoGeneratedReport;
 import model.Account;
@@ -21,7 +26,7 @@ import persistence.JsonGamesWriter;
 
 @ExcludeFromJacocoGeneratedReport
 // Mahjong Scoring System application
-public class ScoringSystem {
+public class ScoringSystem extends JFrame {
 
     private static final String JSON_ACCOUNT_STORE = "./data/accounts.json";
     private static final String JSON_GAME_STORE = "./data/games.json";
@@ -37,11 +42,15 @@ public class ScoringSystem {
 
     // EFFECTS: run the application
     public ScoringSystem() {
+        super("Mahjong Scoring System");
         currentGames = new GameList();
         accountReader = new JsonAccountsReader(JSON_ACCOUNT_STORE);
         accountWriter = new JsonAccountsWriter(JSON_ACCOUNT_STORE);
         gameWriter = new JsonGamesWriter(JSON_GAME_STORE);
         input = new Scanner(System.in);
+
+        graphicsSetup();
+
         try {
             accounts = accountReader.read();
             gameReader = new JsonGamesReader(JSON_GAME_STORE, accounts);
@@ -49,6 +58,14 @@ public class ScoringSystem {
         } catch (IOException e) {
             System.out.println("File corrupted or missing at " + JSON_ACCOUNT_STORE);
         }
+    }
+
+    private void graphicsSetup() {
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        add(new MainPanel());
+        pack();
+        setVisible(true);
+        setResizable(false);
     }
 
     // EFFECTS: process user input
