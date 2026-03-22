@@ -56,7 +56,7 @@ public class ViewPlayerPanel extends JPanel {
     // EFFECTS: updates the player list
     public void updateTable() {
         container.removeAll(); 
-        AccountList accounts = system.geAccountListClass();
+        AccountList accounts = system.getAccountListClass();
         for (Account account : accounts.getAccountList()) {
             JPanel row = new JPanel(new BorderLayout());
             row.setMaximumSize(new Dimension(200, 20));

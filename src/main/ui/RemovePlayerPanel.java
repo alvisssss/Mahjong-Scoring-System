@@ -38,7 +38,7 @@ public class RemovePlayerPanel extends ViewPlayerPanel {
 
     // EFFECTS: helper method for button action handling
     public void handleButton() {
-        AccountList accounts = system.geAccountListClass();
+        AccountList accounts = system.getAccountListClass();
         removeButton.addActionListener(e -> {
             String playerId = input.getText();
             if (!accounts.getAccountNames().contains(playerId)) {
