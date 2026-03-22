@@ -1,10 +1,5 @@
 package ui;
 
-import java.awt.BorderLayout;
-import java.awt.CardLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Toolkit;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -15,8 +10,6 @@ import java.util.List;
 import java.util.Scanner;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-
 import ca.ubc.cs.ExcludeFromJacocoGeneratedReport;
 import model.Account;
 import model.AccountList;
@@ -240,7 +233,7 @@ public class ScoringSystem extends JFrame {
     }
 
     // EFFECTS: helper method for the doCreateGame method
-    private void createGameHelper(List<String> usernames) {
+    public void createGameHelper(List<String> usernames) {
         List<Account> accounts = new ArrayList<>();
         for (String username : usernames) {
             Account account = this.accounts.getAccountList().get(this.accounts.getAccountNames().indexOf(username));

@@ -1,16 +1,9 @@
 package ui;
 
-import java.awt.Button;
-import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.FileNotFoundException;
-
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -76,6 +69,9 @@ public class MainPanel extends JPanel {
         viewGameButton.addActionListener(e -> {
             frame.switchPanel("ViewGame");
         });
+        createGameButton.addActionListener(e -> {
+            frame.switchPanel("CreateGame");
+        });
         loadGameButton.addActionListener(e -> {
             if (system.loadGame()) {
                 message.setText("Loaded games from " + ScoringSystem.JSON_GAME_STORE + "!");
@@ -89,7 +85,8 @@ public class MainPanel extends JPanel {
 
     private void exitButtonHandler() {
         exitButton.addActionListener(e -> {
-            int option = JOptionPane.showConfirmDialog(frame, "Would you like to save all unfinished game(s)?", "Save game", JOptionPane.YES_NO_OPTION);
+            int option = JOptionPane.showConfirmDialog(frame, "Would you like to save all unfinished game(s)?", 
+            "Save game", JOptionPane.YES_NO_OPTION);
             if (option == JOptionPane.YES_OPTION) {
                 system.saveGame();
             }

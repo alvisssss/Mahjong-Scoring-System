@@ -8,7 +8,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import model.Account;
 import model.AccountList;
 // The remove player panel
 public class RemovePlayerPanel extends ViewPlayerPanel {

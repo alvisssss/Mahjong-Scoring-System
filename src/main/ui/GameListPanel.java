@@ -37,6 +37,7 @@ public class GameListPanel extends JPanel {
         table = new JTable(model);
         table.setBackground(Color.BLACK);
         table.setForeground(Color.WHITE);
+        table.setEnabled(false);
         scrollPane = new JScrollPane(table);
         scrollPane.setBackground(Color.BLACK);
 
@@ -45,6 +46,7 @@ public class GameListPanel extends JPanel {
         add(returnButton);
         add(refreshButton);
         add(scrollPane);
+        handleButtonAction();
     }
 
     // EFFECTS: updates the game list
