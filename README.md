@@ -17,3 +17,11 @@ While the application does not implement the actual game, here is a link to the 
 - As a user, I want to be able to see analysis of a player, such as their win rate and average Faan of winning hand.
 - As a user, when I select the quit option from the application menu, I want to be reminded to save all current games and have the option to do so or not.
 - As a user, when I start the application, I want to be given the option to load unfinished games from file.
+
+# Instructions for End User
+- You can view the panel that displays all accounts added to the account list by pressing the button labelled "view players in the system" in the main menu.
+- You can generate the first required action related to the user story "adding a new account to the account list in the system" by pressing the button labelled "create a new account" in the main menu and typing in a new username in the text field in the panel shown afterwards. Then press "enter" button at the bottom to create the account.
+- You can generate the second required action related to the user story "removing a current game" by pressing "view current ongoing games" button, then press "refresh" button and type in the game number for the game you wish to remove. After pressing "enter" button, you will be in the game panel and pressing the "delete" button will prompt you to confirm removing the game.
+- You can locate my visual component by pressing the button labelled "view players in the system" in the main menu. There you will see player icons next to the player names.
+- You can save the state of my application by pressing "close the application" button and selecting "yes" when prompted.
+- You can reload the state of my application by pressing "load unfinished games from file" button in the main menu.
