@@ -22,13 +22,15 @@ public class CreatePlayerPanel extends ViewPlayerPanel {
         super(frame, system);
         JLabel promptText = new JLabel("Please enter new username:");
         promptText.setForeground(Color.WHITE);
-        input = new JTextField(0);
-        //JPanel 
+        input = new JTextField(10);
+        JPanel container = new JPanel();
+        container.add(input);
+        container.setPreferredSize(new Dimension(600, 100));
         enterButton = new JButton("Enter");
         message = new JLabel();
         message.setForeground(Color.WHITE);
         add(promptText);
-        add(input);
+        add(container);
         add(enterButton);
         add(message);
         handleButton();

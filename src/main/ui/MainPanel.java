@@ -63,10 +63,13 @@ public class MainPanel extends JPanel {
     // EFFECTS: helper method for setup
     private void setupMethod() {
         viewPlayerButton.addActionListener(e -> {
-            this.frame.switchPanel("ViewPlayer");
+            frame.switchPanel("ViewPlayer");
         });
         createPlayerButton.addActionListener(e -> {
-            this.frame.switchPanel("CreatePlayer");
+            frame.switchPanel("CreatePlayer");
+        });
+        removePlayerButton.addActionListener(e -> {
+            frame.switchPanel("RemovePlayer");
         });
         loadGameButton.addActionListener(e -> {
             if (system.loadGame()) {
@@ -74,6 +77,11 @@ public class MainPanel extends JPanel {
             } else {
                 message.setText("File corrupted or missing at " + ScoringSystem.JSON_GAME_STORE);
             }
+        });
+        exitButton.addActionListener(e -> {
+            system.saveGame();
+            frame.dispose();
+            System.exit(0);
         });
     }
 
