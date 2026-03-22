@@ -8,7 +8,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import ca.ubc.cs.ExcludeFromJacocoGeneratedReport;
 import model.AccountList;
+
+@ExcludeFromJacocoGeneratedReport
 // The remove player panel
 public class RemovePlayerPanel extends ViewPlayerPanel {
 

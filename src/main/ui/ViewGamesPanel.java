@@ -33,6 +33,7 @@ public class ViewGamesPanel extends JPanel {
     private JButton enterButton;
     private JTextField input;
 
+    @SuppressWarnings("methodlength")
     // EFFECTS: creates a panel showing all ongoing games with options
     public ViewGamesPanel(MainFrame frame, ScoringSystem system, GamePanel gamePanel) {
         this.frame = frame;

@@ -9,6 +9,10 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import ca.ubc.cs.ExcludeFromJacocoGeneratedReport;
+
+@ExcludeFromJacocoGeneratedReport
 // The create game panel
 public class CreateGamePanel extends ViewPlayerPanel {
 
@@ -48,7 +52,7 @@ public class CreateGamePanel extends ViewPlayerPanel {
     public void handleButton() {
         enterButton.addActionListener(e -> {
             List<String> usernames = new ArrayList<>(List.of(input.getText(), input2.getText(), 
-            input3.getText(), input4.getText()));
+                    input3.getText(), input4.getText()));
             system.createGameHelper(usernames);
             message.setText("Game created.");
         });

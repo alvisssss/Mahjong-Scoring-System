@@ -10,13 +10,16 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import ca.ubc.cs.ExcludeFromJacocoGeneratedReport;
 import model.Account;
 import model.AccountList;
 
+@ExcludeFromJacocoGeneratedReport
 // The player menu panel
 public class ViewPlayerPanel extends JPanel {
 
     protected ScoringSystem system;
+    protected MainFrame frame;
 
     private JButton returnButton;
     private JButton refreshButton;
@@ -26,6 +29,7 @@ public class ViewPlayerPanel extends JPanel {
     // EFFECTS: creates a player panel displaying players in the system and return option
     public ViewPlayerPanel(MainFrame frame, ScoringSystem system) {
         this.system = system;
+        this.frame = frame;
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
         setPreferredSize(new Dimension(600, 600));
         setBackground(Color.BLACK);
@@ -36,7 +40,6 @@ public class ViewPlayerPanel extends JPanel {
         add(returnButton);
         add(refreshButton);
         add(playerText);
-        
         container = new JPanel();
         container.setBackground(Color.BLACK);
         container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
@@ -44,12 +47,17 @@ public class ViewPlayerPanel extends JPanel {
         scrollPane = new JScrollPane(container);
         scrollPane.setBackground(Color.BLACK);
         add(scrollPane);
+        setupButtons();
+    }
+
+    // EFFECTS: helper method for setting up buttons
+    public void setupButtons() {
         returnButton.addActionListener(e -> {
             frame.switchPanel("Main");
         });
         refreshButton.addActionListener(e -> {
             updateTable();
-        });
+        });        
     }
 
     // EFFECTS: updates the player list

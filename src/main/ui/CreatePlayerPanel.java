@@ -8,8 +8,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import ca.ubc.cs.ExcludeFromJacocoGeneratedReport;
 import model.Account;
 import model.AccountList;
+
+@ExcludeFromJacocoGeneratedReport
 // The create player panel
 public class CreatePlayerPanel extends ViewPlayerPanel {
 

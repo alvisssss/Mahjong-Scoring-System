@@ -144,7 +144,7 @@ public class GamePanel extends JPanel {
         });
         extraButton.addActionListener(e -> {
             game.extraTransaction(Integer.parseInt(input.getText()), Integer.parseInt(input2.getText()), 
-            Integer.parseInt(input3.getText()), Integer.parseInt(input4.getText()));
+                    Integer.parseInt(input3.getText()), Integer.parseInt(input4.getText()));
             updateGame(game);
         });
 
@@ -160,6 +160,7 @@ public class GamePanel extends JPanel {
         northPlayer.setText("North player: " + game.getNorthPlayerId() + " | Score: " + game.getNorthPlayerScore());
         lastTransactions.setText("Last transactions: " + game.getLastTransaction().toString());
         if (game.getGameEnd()) {
+            system.getGameListClass().removeGame(this.game);
             frame.switchPanel("ViewGame");
         }
     }
@@ -173,7 +174,7 @@ public class GamePanel extends JPanel {
         });
         deleteButton.addActionListener(e -> {
             int option = JOptionPane.showConfirmDialog(frame, "Are you sure you want to delete this game?", 
-            "Delete game", JOptionPane.YES_NO_OPTION);
+                    "Delete game", JOptionPane.YES_NO_OPTION);
             if (option == JOptionPane.YES_OPTION) {
                 system.getGameListClass().removeGame(this.game);
                 frame.switchPanel("ViewGame");

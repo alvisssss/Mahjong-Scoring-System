@@ -25,6 +25,7 @@ public class MainPanel extends JPanel {
     private JButton exitButton;
     private JLabel message;
 
+    @SuppressWarnings("methodlength")
     // EFFECTS: creates a main menu panel with buttons and welcoming text
     public MainPanel(MainFrame frame, ScoringSystem system) {
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
@@ -80,13 +81,13 @@ public class MainPanel extends JPanel {
             }
         });
         exitButtonHandler();
-
     }
 
+    // EFFECTS: helper method for setting up exit button action
     private void exitButtonHandler() {
         exitButton.addActionListener(e -> {
             int option = JOptionPane.showConfirmDialog(frame, "Would you like to save all unfinished game(s)?", 
-            "Save game", JOptionPane.YES_NO_OPTION);
+                    "Save game", JOptionPane.YES_NO_OPTION);
             if (option == JOptionPane.YES_OPTION) {
                 system.saveGame();
             }
