@@ -21,13 +21,14 @@ public class MainPanel extends JPanel {
     private MainFrame frame;
     private ScoringSystem system;
 
-    private JButton button1;
-    private JButton button2;
-    private JButton button3;
-    private JButton button4;
-    private JButton button5;
-    private JButton button6;
-    private JButton button7;
+    private JButton viewPlayerButton;
+    private JButton createGameButton;
+    private JButton createPlayerButton;
+    private JButton removePlayerButton;
+    private JButton viewGameButton;
+    private JButton loadGameButton;
+    private JButton exitButton;
+    private JLabel message;
 
     // EFFECTS: creates a main menu panel with buttons and welcoming text
     public MainPanel(MainFrame frame, ScoringSystem system) {
@@ -36,21 +37,24 @@ public class MainPanel extends JPanel {
         setBackground(Color.BLACK);
         JLabel welcomeText = new JLabel("Welcome to the Mahjong Scoring System! Select from below:");
         welcomeText.setForeground(new Color(255, 255, 255));
-        button1 = new JButton("view players in the system");
-        button2 = new JButton("create a new game");
-        button3 = new JButton("create a new account");
-        button4 = new JButton("remove an existing account");
-        button5 = new JButton("view current ongoing games");
-        button6 = new JButton("load unfinished games from file");
-        button7 = new JButton("close the application");
+        viewPlayerButton = new JButton("view players in the system");
+        createGameButton = new JButton("create a new game");
+        createPlayerButton = new JButton("create a new account");
+        removePlayerButton = new JButton("remove an existing account");
+        viewGameButton = new JButton("view current ongoing games");
+        loadGameButton = new JButton("load unfinished games from file");
+        exitButton = new JButton("close the application");
+        message = new JLabel();
+        message.setForeground(Color.WHITE);
         add(welcomeText);
-        add(button1);
-        add(button2);
-        add(button3);
-        add(button4);
-        add(button5);
-        add(button6);
-        add(button7);
+        add(viewPlayerButton);
+        add(createGameButton);
+        add(createPlayerButton);
+        add(removePlayerButton);
+        add(viewGameButton);
+        add(loadGameButton);
+        add(exitButton);
+        add(message);
         this.frame = frame;
         this.system = system;
         setupMethod();
@@ -58,17 +62,19 @@ public class MainPanel extends JPanel {
 
     // EFFECTS: helper method for setup
     private void setupMethod() {
-        button1.addActionListener(e -> {
-            this.frame.switchPanel("Player");
+        viewPlayerButton.addActionListener(e -> {
+            this.frame.switchPanel("ViewPlayer");
         });
-        // button2.addActionListener(this);
-        // button3.addActionListener(this);
-        // button4.addActionListener(this);
-        // button5.addActionListener(this);
-        button6.addActionListener(e -> {
-
+        createPlayerButton.addActionListener(e -> {
+            this.frame.switchPanel("CreatePlayer");
         });
-        // button7.addActionListener(this);
+        loadGameButton.addActionListener(e -> {
+            if (system.loadGame()) {
+                message.setText("Loaded games from " + ScoringSystem.JSON_GAME_STORE + "!");
+            } else {
+                message.setText("File corrupted or missing at " + ScoringSystem.JSON_GAME_STORE);
+            }
+        });
     }
 
 

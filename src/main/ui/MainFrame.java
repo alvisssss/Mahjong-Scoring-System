@@ -23,7 +23,8 @@ public class MainFrame extends JFrame {
         cardPanel = new JPanel(cardLayout);
 
         cardPanel.add(new MainPanel(this, system), "Main");
-        cardPanel.add(new PlayerPanel(this, system), "Player");
+        cardPanel.add(new ViewPlayerPanel(this, system), "ViewPlayer");
+        cardPanel.add(new CreatePlayerPanel(this, system), "CreatePlayer");
 
 
 

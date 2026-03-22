@@ -36,7 +36,7 @@ public class CreatePlayerPanel extends ViewPlayerPanel {
 
     // EFFECTS: helper method for button action handling
     public void handleButton() {
-        AccountList accounts = this.system.getAccountListClass();
+        AccountList accounts = system.geAccountListClass();
         enterButton.addActionListener(e -> {
             String playerId = input.getText();
             if (accounts.getAccountNames().contains(playerId)) {
@@ -44,7 +44,7 @@ public class CreatePlayerPanel extends ViewPlayerPanel {
             } else {
                 Account account = new Account(playerId);
                 accounts.addAccount(account);
-                updateTable(system);
+                updateTable();
                 message.setText("Account with username " + playerId + " created!");
             }
         });

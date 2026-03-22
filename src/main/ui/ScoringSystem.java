@@ -31,8 +31,8 @@ import persistence.JsonGamesWriter;
 // Mahjong Scoring System application
 public class ScoringSystem extends JFrame {
 
-    private static final String JSON_ACCOUNT_STORE = "./data/accounts.json";
-    private static final String JSON_GAME_STORE = "./data/games.json";
+    public static final String JSON_ACCOUNT_STORE = "./data/accounts.json";
+    public static final String JSON_GAME_STORE = "./data/games.json";
 
     private GameList currentGames;
     private AccountList accounts;
@@ -52,11 +52,12 @@ public class ScoringSystem extends JFrame {
         gameWriter = new JsonGamesWriter(JSON_GAME_STORE);
         input = new Scanner(System.in);
 
-        graphicsSetup();
+        //graphicsSetup();
 
         try {
             accounts = accountReader.read();
             gameReader = new JsonGamesReader(JSON_GAME_STORE, accounts);
+            new MainFrame(this);
             runSystem();
         } catch (IOException e) {
             System.out.println("File corrupted or missing at " + JSON_ACCOUNT_STORE);
@@ -71,8 +72,8 @@ public class ScoringSystem extends JFrame {
         CardLayout cardLayout = new CardLayout();
         cardPanel.setLayout(cardLayout);
 
-        cardPanel.add(new MainPanel(cardPanel, cardLayout), "Main");
-        cardPanel.add(new PlayerPanel(cardPanel, cardLayout), "Player");
+        // cardPanel.add(new MainPanel(cardPanel, cardLayout), "Main");
+        // cardPanel.add(new PlayerPanel(cardPanel, cardLayout), "Player");
         cardLayout.show(cardPanel, "Main");
 
         getContentPane().add(cardPanel, BorderLayout.CENTER);
@@ -146,6 +147,27 @@ public class ScoringSystem extends JFrame {
                 }
                 break;
         }
+    }
+
+    public boolean loadGame() {
+        try {
+            currentGames = gameReader.read();
+            return true;
+        } catch (IOException e) {
+            return false;
+        }
+    }
+
+    public void saveGame() {
+        try {
+            accountWriter.open();        
+            accountWriter.write(accounts);
+            accountWriter.close();
+            promptSaveGame();
+        } catch (FileNotFoundException e) {
+            System.out.println("File corrupted or missing at " + JSON_ACCOUNT_STORE);
+        }
+
     }
 
     // EFFECTS: display player list to user
@@ -382,5 +404,9 @@ public class ScoringSystem extends JFrame {
         System.out.println("Please enter corresponding winning hand size (faan): ");
         int faan = input.nextInt();
         game.dealIn(winner, loser, faan);
+    }
+
+    public AccountList geAccountListClass() {
+        return accounts;
     }
 }
