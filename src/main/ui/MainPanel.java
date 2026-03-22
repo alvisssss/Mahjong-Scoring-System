@@ -71,6 +71,9 @@ public class MainPanel extends JPanel {
         removePlayerButton.addActionListener(e -> {
             frame.switchPanel("RemovePlayer");
         });
+        viewGameButton.addActionListener(e -> {
+            frame.switchPanel("ViewGame");
+        });
         loadGameButton.addActionListener(e -> {
             if (system.loadGame()) {
                 message.setText("Loaded games from " + ScoringSystem.JSON_GAME_STORE + "!");
@@ -84,8 +87,4 @@ public class MainPanel extends JPanel {
             System.exit(0);
         });
     }
-
-
-
-
 }
