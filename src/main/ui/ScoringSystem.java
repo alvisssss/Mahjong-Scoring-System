@@ -52,8 +52,6 @@ public class ScoringSystem extends JFrame {
         gameWriter = new JsonGamesWriter(JSON_GAME_STORE);
         input = new Scanner(System.in);
 
-        //graphicsSetup();
-
         try {
             accounts = accountReader.read();
             gameReader = new JsonGamesReader(JSON_GAME_STORE, accounts);
@@ -62,24 +60,6 @@ public class ScoringSystem extends JFrame {
         } catch (IOException e) {
             System.out.println("File corrupted or missing at " + JSON_ACCOUNT_STORE);
         }
-    }
-
-    // EFFECTS: helper method for setup
-    private void graphicsSetup() {
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(new Dimension(600, 600));
-        JPanel cardPanel = new JPanel();
-        CardLayout cardLayout = new CardLayout();
-        cardPanel.setLayout(cardLayout);
-
-        // cardPanel.add(new MainPanel(cardPanel, cardLayout), "Main");
-        // cardPanel.add(new PlayerPanel(cardPanel, cardLayout), "Player");
-        cardLayout.show(cardPanel, "Main");
-
-        getContentPane().add(cardPanel, BorderLayout.CENTER);
-        pack();
-        setVisible(true);
-        setResizable(false);
     }
 
     // EFFECTS: process user input
@@ -158,17 +138,27 @@ public class ScoringSystem extends JFrame {
         }
     }
 
-    public void saveGame() {
+    public void saveAccount() {
         try {
             accountWriter.open();        
             accountWriter.write(accounts);
             accountWriter.close();
-            promptSaveGame();
         } catch (FileNotFoundException e) {
             System.out.println("File corrupted or missing at " + JSON_ACCOUNT_STORE);
         }
 
     }
+
+    public void saveGame() {
+        try {
+            gameWriter.open();
+            gameWriter.write(currentGames);
+            gameWriter.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to save due to file missing at " + JSON_GAME_STORE + ".");
+        }
+    }
+
 
     // EFFECTS: display player list to user
     private void displayPlayerMenu() {
@@ -406,7 +396,11 @@ public class ScoringSystem extends JFrame {
         game.dealIn(winner, loser, faan);
     }
 
-    public AccountList geAccountListClass() {
+    public AccountList getAccountListClass() {
         return accounts;
+    }
+
+    public GameList getGameListClass() {
+        return currentGames;
     }
 }

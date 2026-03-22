@@ -60,9 +60,7 @@ public class GameListPanel extends JPanel {
                 game.getNorthPlayerId()};
             model.addRow(row);
             counter++;
-            System.out.println(counter);
         }
-        System.out.println("Hi");
     }
 
     // EFFECTS: helper method for handling button actions
