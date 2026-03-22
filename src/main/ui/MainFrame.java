@@ -7,6 +7,9 @@ import java.awt.Dimension;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import ca.ubc.cs.ExcludeFromJacocoGeneratedReport;
+
+@ExcludeFromJacocoGeneratedReport
 // The main frame of the GUI
 public class MainFrame extends JFrame {
 
@@ -22,12 +25,16 @@ public class MainFrame extends JFrame {
         cardLayout = new CardLayout();
         cardPanel = new JPanel(cardLayout);
 
+        GamePanel gamePanel = new GamePanel(this, system);
+
         cardPanel.add(new MainPanel(this, system), "Main");
         cardPanel.add(new ViewPlayerPanel(this, system), "ViewPlayer");
         cardPanel.add(new CreatePlayerPanel(this, system), "CreatePlayer");
         cardPanel.add(new RemovePlayerPanel(this, system), "RemovePlayer");
-        cardPanel.add(new GameListPanel(this, system), "ViewGame");
+        cardPanel.add(gamePanel, "Game");
+        cardPanel.add(new ViewGamesPanel(this, system, gamePanel), "ViewGame");
         cardPanel.add(new CreateGamePanel(this, system), "CreateGame");
+        
 
 
         cardLayout.show(cardPanel, "Main");

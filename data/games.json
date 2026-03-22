@@ -48,27 +48,27 @@
         "roundCounter": 1
     },
     {
-        "lastWinner": -1,
+        "lastWinner": 1,
         "playerScores": [
-            0,
-            0,
-            0,
-            0
+            -180,
+            -107,
+            590,
+            -228
         ],
         "continuance": 0,
         "lastTransaction": [
             0,
-            0,
-            0,
+            22,
+            -22,
             0
         ],
-        "lastLosers": [],
+        "lastLosers": [2],
         "playerIds": [
             "c",
             "d",
             "7456",
             "hihi"
         ],
-        "roundCounter": 0
+        "roundCounter": 3
     }
 ]}

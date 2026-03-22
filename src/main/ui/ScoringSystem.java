@@ -122,6 +122,7 @@ public class ScoringSystem extends JFrame {
         }
     }
 
+    // EFFECTS: tries to load game from file, true if successful and false otherwise
     public boolean loadGame() {
         try {
             currentGames = gameReader.read();
@@ -131,6 +132,7 @@ public class ScoringSystem extends JFrame {
         }
     }
 
+    // EFFECTS: saves all existing accounts in the system
     public void saveAccount() {
         try {
             accountWriter.open();        
@@ -142,6 +144,7 @@ public class ScoringSystem extends JFrame {
 
     }
 
+    // EFFECTS: saves all existing ongoing games in the system
     public void saveGame() {
         try {
             gameWriter.open();
