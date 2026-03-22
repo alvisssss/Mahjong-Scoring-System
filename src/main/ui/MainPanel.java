@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import ca.ubc.cs.ExcludeFromJacocoGeneratedReport;
@@ -17,8 +18,8 @@ import ca.ubc.cs.ExcludeFromJacocoGeneratedReport;
 // The main menu panel
 public class MainPanel extends JPanel {
 
-    private JPanel cardPanel;
-    private CardLayout cardLayout;
+    private MainFrame frame;
+    private ScoringSystem system;
 
     private JButton button1;
     private JButton button2;
@@ -29,7 +30,7 @@ public class MainPanel extends JPanel {
     private JButton button7;
 
     // EFFECTS: creates a main menu panel with buttons and welcoming text
-    public MainPanel(JPanel cardPanel, CardLayout cardLayout) {
+    public MainPanel(MainFrame frame, ScoringSystem system) {
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
         setPreferredSize(new Dimension(600, 600));
         setBackground(Color.BLACK);
@@ -50,21 +51,23 @@ public class MainPanel extends JPanel {
         add(button5);
         add(button6);
         add(button7);
-        this.cardPanel = cardPanel;
-        this.cardLayout = cardLayout;
-        setupFunction();
+        this.frame = frame;
+        this.system = system;
+        setupMethod();
     }
 
     // EFFECTS: helper method for setup
-    private void setupFunction() {
+    private void setupMethod() {
         button1.addActionListener(e -> {
-            cardLayout.show(cardPanel, "Player");
+            this.frame.switchPanel("Player");
         });
         // button2.addActionListener(this);
         // button3.addActionListener(this);
         // button4.addActionListener(this);
         // button5.addActionListener(this);
-        // button6.addActionListener(this);
+        button6.addActionListener(e -> {
+
+        });
         // button7.addActionListener(this);
     }
 
