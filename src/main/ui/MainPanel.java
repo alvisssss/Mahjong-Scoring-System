@@ -23,25 +23,15 @@ public class MainPanel extends JPanel {
     private JButton viewGameButton;
     private JButton loadGameButton;
     private JButton exitButton;
+    private JLabel welcomeText;
     private JLabel message;
 
-    @SuppressWarnings("methodlength")
     // EFFECTS: creates a main menu panel with buttons and welcoming text
     public MainPanel(MainFrame frame, ScoringSystem system) {
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
         setPreferredSize(new Dimension(600, 600));
         setBackground(Color.BLACK);
-        JLabel welcomeText = new JLabel("Welcome to the Mahjong Scoring System! Select from below:");
-        welcomeText.setForeground(new Color(255, 255, 255));
-        viewPlayerButton = new JButton("view players in the system");
-        createGameButton = new JButton("create a new game");
-        createPlayerButton = new JButton("create a new account");
-        removePlayerButton = new JButton("remove an existing account");
-        viewGameButton = new JButton("view current ongoing games");
-        loadGameButton = new JButton("load unfinished games from file");
-        exitButton = new JButton("close the application");
-        message = new JLabel();
-        message.setForeground(Color.WHITE);
+        setupComponents();
         add(welcomeText);
         add(viewPlayerButton);
         add(createGameButton);
@@ -54,6 +44,21 @@ public class MainPanel extends JPanel {
         this.frame = frame;
         this.system = system;
         setupMethod();
+    }
+
+    // EFFECTS: creates all the components of this panel
+    private void setupComponents() {
+        welcomeText = new JLabel("Welcome to the Mahjong Scoring System! Select from below:");
+        welcomeText.setForeground(new Color(255, 255, 255));
+        viewPlayerButton = new JButton("view players in the system");
+        createGameButton = new JButton("create a new game");
+        createPlayerButton = new JButton("create a new account");
+        removePlayerButton = new JButton("remove an existing account");
+        viewGameButton = new JButton("view current ongoing games");
+        loadGameButton = new JButton("load unfinished games from file");
+        exitButton = new JButton("close the application");
+        message = new JLabel();
+        message.setForeground(Color.WHITE);
     }
 
     // EFFECTS: helper method for setup

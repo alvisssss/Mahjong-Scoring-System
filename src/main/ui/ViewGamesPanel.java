@@ -33,7 +33,6 @@ public class ViewGamesPanel extends JPanel {
     private JButton enterButton;
     private JTextField input;
 
-    @SuppressWarnings("methodlength")
     // EFFECTS: creates a panel showing all ongoing games with options
     public ViewGamesPanel(MainFrame frame, ScoringSystem system, GamePanel gamePanel) {
         this.frame = frame;
@@ -42,15 +41,7 @@ public class ViewGamesPanel extends JPanel {
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
         setPreferredSize(new Dimension(600, 600));
         setBackground(Color.BLACK);
-        model = new DefaultTableModel(columnNames, 0);
-        updateTable();
-        table = new JTable(model);
-        table.setBackground(Color.BLACK);
-        table.setForeground(Color.WHITE);
-        table.setEnabled(false);
-        scrollPane = new JScrollPane(table);
-        scrollPane.setBackground(Color.BLACK);
-
+        setupTable();
         input = new JTextField(10);
         JPanel container = new JPanel();
         container.add(input);
@@ -67,6 +58,18 @@ public class ViewGamesPanel extends JPanel {
         add(container);
         add(enterButton);
         handleButtonAction();
+    }
+
+    // EFFECTS: sets up the table for displaying the ongoing games
+    private void setupTable() {
+        model = new DefaultTableModel(columnNames, 0);
+        updateTable();
+        table = new JTable(model);
+        table.setBackground(Color.BLACK);
+        table.setForeground(Color.WHITE);
+        table.setEnabled(false);
+        scrollPane = new JScrollPane(table);
+        scrollPane.setBackground(Color.BLACK);
     }
 
     // EFFECTS: updates the game list

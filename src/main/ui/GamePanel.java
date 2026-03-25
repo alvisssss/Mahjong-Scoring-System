@@ -45,7 +45,6 @@ public class GamePanel extends JPanel {
     private MainFrame frame;
     private ScoringSystem system;
 
-    @SuppressWarnings("methodlength")
     // EFFECTS: creates a game panel displaying all info about a game with options
     public GamePanel(MainFrame frame, ScoringSystem system) {
         this.system = system;
@@ -53,6 +52,25 @@ public class GamePanel extends JPanel {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setPreferredSize(new Dimension(600, 600));
         setBackground(Color.BLACK);
+        setupGameInfo();
+        JPanel buttonContainer = createButtonContainer();
+        JPanel scoreContainer = createScoreContainer();
+        JPanel extraContainer = createExtraContainer();
+        returnButton = new JButton("return");
+        refreshButton = new JButton("refresh");
+        deleteButton = new JButton("delete");
+        JLabel extraTransaction = new JLabel("Extra transactions: East | South | West | North");
+        extraTransaction.setForeground(Color.WHITE);
+        JLabel inputText = new JLabel("Winner pos. | Loser pos. | Winning hand size (faan) [East = 0, North = 3]");
+        inputText.setForeground(Color.WHITE);
+        addComponents(buttonContainer, scoreContainer, extraContainer, extraTransaction, inputText);
+        handleTopButtonActions();
+        handleGameButtonActions();
+    }
+
+    // MODIFIES: this
+    // EFFECTS: setup all components for displaying game information
+    private void setupGameInfo() {
         gameState = new JLabel();
         gameState.setForeground(Color.WHITE);
         eastPlayer = new JLabel();
@@ -65,44 +83,12 @@ public class GamePanel extends JPanel {
         northPlayer.setForeground(Color.WHITE);
         lastTransactions = new JLabel();
         lastTransactions.setForeground(Color.WHITE);
+    }
 
-        JPanel buttonContainer = new JPanel();
-        buttonContainer.setBackground(Color.BLACK);
-        dealInButton = new JButton("Deal In");
-        selfDrawButton = new JButton("Self Draw");
-        deckOutButton = new JButton("Deck Out");
-        buttonContainer.add(dealInButton);
-        buttonContainer.add(selfDrawButton);
-        buttonContainer.add(deckOutButton);
-
-        winnerInput = new JTextField(10);
-        loserInput = new JTextField(10);
-        faanInput = new JTextField(10);
-        JPanel scoreContainer = new JPanel();
-        scoreContainer.add(winnerInput);
-        scoreContainer.add(loserInput);
-        scoreContainer.add(faanInput);
-        scoreContainer.setPreferredSize(new Dimension(600, 100));
-
-        JPanel extraContainer = new JPanel();
-        input = new JTextField("0", 10);
-        input2 = new JTextField("0", 10);
-        input3 = new JTextField("0", 10);
-        input4 = new JTextField("0", 10);
-        extraContainer.add(input);
-        extraContainer.add(input2);
-        extraContainer.add(input3);
-        extraContainer.add(input4);
-        extraContainer.setPreferredSize(new Dimension(600, 100));
-        extraButton = new JButton("Enter");
-
-        returnButton = new JButton("return");
-        refreshButton = new JButton("refresh");
-        deleteButton = new JButton("delete");
-        JLabel extraTransaction = new JLabel("Extra transactions: East | South | West | North");
-        extraTransaction.setForeground(Color.WHITE);
-        JLabel inputText = new JLabel("Winner pos. | Loser pos. | Winning hand size (faan) [East = 0, North = 3]");
-        inputText.setForeground(Color.WHITE);
+    // MODIFIES: this
+    // EFFECTS: adds all components of the panel to the this panel
+    private void addComponents(JPanel buttonContainer, JPanel scoreContainer, JPanel extraContainer,
+            JLabel extraTransaction, JLabel inputText) {
         add(returnButton);
         add(refreshButton);
         add(deleteButton);
@@ -118,11 +104,54 @@ public class GamePanel extends JPanel {
         add(extraTransaction);
         add(extraContainer);
         add(extraButton);
-        
-        handleTopButtonActions();
-        handleGameButtonActions();
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates the container for extra transaction
+    private JPanel createExtraContainer() {
+        JPanel extraContainer = new JPanel();
+        input = new JTextField("0", 10);
+        input2 = new JTextField("0", 10);
+        input3 = new JTextField("0", 10);
+        input4 = new JTextField("0", 10);
+        extraContainer.add(input);
+        extraContainer.add(input2);
+        extraContainer.add(input3);
+        extraContainer.add(input4);
+        extraContainer.setPreferredSize(new Dimension(600, 100));
+        extraButton = new JButton("Enter");
+        return extraContainer;
+    }
+
+    // MODIFIES: this
+    // EFFECTS: creates the container for score keeping
+    private JPanel createScoreContainer() {
+        winnerInput = new JTextField(10);
+        loserInput = new JTextField(10);
+        faanInput = new JTextField(10);
+        JPanel scoreContainer = new JPanel();
+        scoreContainer.add(winnerInput);
+        scoreContainer.add(loserInput);
+        scoreContainer.add(faanInput);
+        scoreContainer.setPreferredSize(new Dimension(600, 100));
+        return scoreContainer;
+    }
+
+    // MODIFIES: this
+    // EFFECTS: creates the container for game action buttons
+    private JPanel createButtonContainer() {
+        JPanel buttonContainer = new JPanel();
+        buttonContainer.setBackground(Color.BLACK);
+        dealInButton = new JButton("Deal In");
+        selfDrawButton = new JButton("Self Draw");
+        deckOutButton = new JButton("Deck Out");
+        buttonContainer.add(dealInButton);
+        buttonContainer.add(selfDrawButton);
+        buttonContainer.add(deckOutButton);
+        return buttonContainer;
+    }
+
+    // MODIFIES: this
     // EFFECTS: helper method for setting up game button actions
     public void handleGameButtonActions() {
         deckOutButton.addActionListener(e -> {
@@ -165,6 +194,7 @@ public class GamePanel extends JPanel {
         }
     }
 
+    // EFFECTS: handles return, refresh, and delete button actions
     public void handleTopButtonActions() {
         returnButton.addActionListener(e -> {
             frame.switchPanel("ViewGame");
