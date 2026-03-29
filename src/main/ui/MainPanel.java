@@ -8,6 +8,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import ca.ubc.cs.ExcludeFromJacocoGeneratedReport;
+import model.Event;
+import model.EventLog;
 
 @ExcludeFromJacocoGeneratedReport
 // The main menu panel
@@ -98,6 +100,10 @@ public class MainPanel extends JPanel {
             }
             system.saveAccount();
             frame.dispose();
+            EventLog eventLog = EventLog.getInstance();
+            for (Event event : eventLog) {
+                System.out.println(event.toString());
+            }
             System.exit(0);
         });        
     }

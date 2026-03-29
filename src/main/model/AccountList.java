@@ -23,6 +23,8 @@ public class AccountList implements Writable {
     // EFFECTS: Adds the given account to the list
     public void addAccount(Account account) {
         accountList.add(account);
+        EventLog.getInstance().logEvent(new Event("Added account " + account.getPlayerId() + "with score " 
+                + account.getPlayerScore() + " to AccountList."));
     }
 
     // REQUIRES: account already in the list
@@ -30,6 +32,7 @@ public class AccountList implements Writable {
     // EFFECTS: Removes the given account to the list
     public void removeAccount(Account account) {
         accountList.remove(account);
+        EventLog.getInstance().logEvent(new Event("Removed account " + account.getPlayerId() + " from AccountList."));
     }
 
     public List<Account> getAccountList() {
