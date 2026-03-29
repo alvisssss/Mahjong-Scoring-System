@@ -27,71 +27,71 @@ While the application does not implement the actual game, here is a link to the 
 - You can reload the state of my application by pressing "load unfinished games from file" button in the main menu.
 
 # Phase 4: Task 2
-Sat Mar 28 20:10:09 PDT 2026
-Added account cwith score -10559 to AccountList.
-Sat Mar 28 20:10:09 PDT 2026
-Added account ahfwith score -7482 to AccountList.
-Sat Mar 28 20:10:09 PDT 2026
-Added account ushwith score 0 to AccountList.
-Sat Mar 28 20:10:09 PDT 2026
-Added account 12rfwith score 23563 to AccountList.
-Sat Mar 28 20:10:09 PDT 2026
-Added account abcdeafawith score -100000000 to AccountList.
-Sat Mar 28 20:10:09 PDT 2026
-Added account abcdwith score 0 to AccountList.
-Sat Mar 28 20:10:09 PDT 2026
-Added account wadawdwADwith score 0 to AccountList.
-Sat Mar 28 20:10:09 PDT 2026
-Added account wadawdwwith score 0 to AccountList.
-Sat Mar 28 20:10:09 PDT 2026
-Added account wadahggiwith score 0 to AccountList.
-Sat Mar 28 20:10:09 PDT 2026
-Added account wadw d Wwith score 0 to AccountList.
-Sat Mar 28 20:10:09 PDT 2026
-Added account w12edwith score 0 to AccountList.
-Sat Mar 28 20:10:09 PDT 2026
-Added account w1daghywith score 0 to AccountList.
-Sat Mar 28 20:10:09 PDT 2026
-Added account w1dawaddwith score 0 to AccountList.
-Sat Mar 28 20:10:09 PDT 2026
-Added account 12456with score 0 to AccountList.
-Sat Mar 28 20:10:09 PDT 2026
-Added account 52432with score 26563 to AccountList.
-Sat Mar 28 20:10:09 PDT 2026
-Added account 3464with score 0 to AccountList.
-Sat Mar 28 20:10:09 PDT 2026
-Added account 6546546with score 0 to AccountList.
-Sat Mar 28 20:10:09 PDT 2026
-Added account 43242with score -7519 to AccountList.
-Sat Mar 28 20:10:09 PDT 2026
-Added account 2344979with score 0 to AccountList.
-Sat Mar 28 20:10:09 PDT 2026
-Added account 708708with score 0 to AccountList.
-Sat Mar 28 20:10:09 PDT 2026
-Added account 7456with score 0 to AccountList.
-Sat Mar 28 20:10:09 PDT 2026
-Added account hihiwith score 0 to AccountList.
-Sat Mar 28 20:10:09 PDT 2026
-Added account dwith score 0 to AccountList.
-Sat Mar 28 20:10:09 PDT 2026
-Added account 354m98wwith score 0 to AccountList.
-Sat Mar 28 20:10:09 PDT 2026
-Added account idkidkwith score 0 to AccountList.
-Sat Mar 28 20:10:09 PDT 2026
-Added account whateverwhateverwith score 0 to AccountList.
-Sat Mar 28 20:10:14 PDT 2026
-Added game with players: c, d, ahf, and ush to GameList (Game state: E3-0).
-Sat Mar 28 20:10:14 PDT 2026
-Added game with players: 12rf, ush, ahf, and c to GameList (Game state: E2-0).
-Sat Mar 28 20:10:14 PDT 2026
-Added game with players: c, d, 7456, and hihi to GameList (Game state: E4-0).
-Sat Mar 28 20:10:22 PDT 2026
-Removed account 708708 from AccountList.
-Sat Mar 28 20:10:49 PDT 2026
-Added account anewaccountwith score 0 to AccountList.
-Sat Mar 28 20:10:58 PDT 2026
-Added account asecondaccountwith score 0 to AccountList.
-Sat Mar 28 20:11:29 PDT 2026
-Added game with players: d, w12ed, wadawdw, and abcd to GameList (Game state: E1-0).
-Sat Mar 28 20:11:50 PDT 2026
+Sat Mar 28 20:10:09 PDT 2026  
+Added account cwith score -10559 to AccountList.  
+Sat Mar 28 20:10:09 PDT 2026  
+Added account ahfwith score -7482 to AccountList.  
+Sat Mar 28 20:10:09 PDT 2026  
+Added account ushwith score 0 to AccountList.  
+Sat Mar 28 20:10:09 PDT 2026  
+Added account 12rfwith score 23563 to AccountList.  
+Sat Mar 28 20:10:09 PDT 2026  
+Added account abcdeafawith score -100000000 to AccountList.  
+Sat Mar 28 20:10:09 PDT 2026  
+Added account abcdwith score 0 to AccountList.  
+Sat Mar 28 20:10:09 PDT 2026  
+Added account wadawdwADwith score 0 to AccountList.  
+Sat Mar 28 20:10:09 PDT 2026  
+Added account wadawdwwith score 0 to AccountList.  
+Sat Mar 28 20:10:09 PDT 2026  
+Added account wadahggiwith score 0 to AccountList.  
+Sat Mar 28 20:10:09 PDT 2026  
+Added account wadw d Wwith score 0 to AccountList.  
+Sat Mar 28 20:10:09 PDT 2026  
+Added account w12edwith score 0 to AccountList.  
+Sat Mar 28 20:10:09 PDT 2026  
+Added account w1daghywith score 0 to AccountList.  
+Sat Mar 28 20:10:09 PDT 2026  
+Added account w1dawaddwith score 0 to AccountList.  
+Sat Mar 28 20:10:09 PDT 2026  
+Added account 12456with score 0 to AccountList.  
+Sat Mar 28 20:10:09 PDT 2026  
+Added account 52432with score 26563 to AccountList.  
+Sat Mar 28 20:10:09 PDT 2026  
+Added account 3464with score 0 to AccountList.  
+Sat Mar 28 20:10:09 PDT 2026  
+Added account 6546546with score 0 to AccountList.  
+Sat Mar 28 20:10:09 PDT 2026  
+Added account 43242with score -7519 to AccountList.  
+Sat Mar 28 20:10:09 PDT 2026  
+Added account 2344979with score 0 to AccountList.  
+Sat Mar 28 20:10:09 PDT 2026  
+Added account 708708with score 0 to AccountList.  
+Sat Mar 28 20:10:09 PDT 2026  
+Added account 7456with score 0 to AccountList.  
+Sat Mar 28 20:10:09 PDT 2026  
+Added account hihiwith score 0 to AccountList.  
+Sat Mar 28 20:10:09 PDT 2026  
+Added account dwith score 0 to AccountList.  
+Sat Mar 28 20:10:09 PDT 2026  
+Added account 354m98wwith score 0 to AccountList.  
+Sat Mar 28 20:10:09 PDT 2026  
+Added account idkidkwith score 0 to AccountList.  
+Sat Mar 28 20:10:09 PDT 2026  
+Added account whateverwhateverwith score 0 to AccountList.  
+Sat Mar 28 20:10:14 PDT 2026  
+Added game with players: c, d, ahf, and ush to GameList (Game state: E3-0).  
+Sat Mar 28 20:10:14 PDT 2026  
+Added game with players: 12rf, ush, ahf, and c to GameList (Game state: E2-0).  
+Sat Mar 28 20:10:14 PDT 2026  
+Added game with players: c, d, 7456, and hihi to GameList (Game state: E4-0).  
+Sat Mar 28 20:10:22 PDT 2026  
+Removed account 708708 from AccountList.  
+Sat Mar 28 20:10:49 PDT 2026  
+Added account anewaccountwith score 0 to AccountList.  
+Sat Mar 28 20:10:58 PDT 2026  
+Added account asecondaccountwith score 0 to AccountList.  
+Sat Mar 28 20:11:29 PDT 2026  
+Added game with players: d, w12ed, wadawdw, and abcd to GameList (Game state: E1-0).  
+Sat Mar 28 20:11:50 PDT 2026  
 Removed game with players: d, w12ed, wadawdw, and abcd from GameList (Game state: E1-0).
