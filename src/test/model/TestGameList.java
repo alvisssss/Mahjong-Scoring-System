@@ -33,10 +33,10 @@ public class TestGameList {
         player2 = new Account("hi");
         player3 = new Account("idk");
         player4 = new Account("1");
-        player4 = new Account("2");
-        player4 = new Account("6$");
-        player4 = new Account("280");
-        player4 = new Account("154");
+        player5 = new Account("2");
+        player6 = new Account("6$");
+        player7 = new Account("280");
+        player8 = new Account("154");
         game1 = new Game(player1, player3, player5, player7);
         game2 = new Game(player2, player4, player6, player8);
         game3 = new Game(player7, player6, player4, player1);
