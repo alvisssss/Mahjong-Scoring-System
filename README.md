@@ -95,3 +95,6 @@ Sat Mar 28 20:11:29 PDT 2026
 Added game with players: d, w12ed, wadawdw, and abcd to GameList (Game state: E1-0).  
 Sat Mar 28 20:11:50 PDT 2026  
 Removed game with players: d, w12ed, wadawdw, and abcd from GameList (Game state: E1-0).
+
+# Phase 4: Task 3
+If I had more time to work on the project, I might abstract some duplicated codes to improve the coupling. Phase 3 introduced a lot of associations between the panels and ScoringSystem and MainFrame, which is not ideal as each panel has to refer to them when they are instantiated. For example, currently the CreatePlayerPanel and RemovePlayerPanel extend ViewPlayerPanel, but they can be combined into one panel that handles all actions related to players in the system. This lowers the coupling while still adhering to the Single Responsibility Principle. In addition, the ScoringSystem class was supposed to be the central class that prints everything to the console from Phase 2, but Phase 3 already moved most of its responsibility to the panel classes, leaving behind many unused methods. It could be refactored such that ScoringSystem is removed and all responsibilities are divided among other classes, lowering the coupling even further.
